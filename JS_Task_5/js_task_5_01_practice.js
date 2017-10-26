@@ -1,34 +1,33 @@
 var truecalc = function () {
     state = 0;
     return {
-        add: function (a, b) {
-            if (arguments.length === 1) {
-                b = a;
-                a = state;
+        add: function (a) {
+            state += a;
+            var func = function (b) {
+                return state += b;
             }
-            state = a+b;
-            return state;
+            return func;
         },
-        multiply: function (a, b) {
-            if (arguments.length === 1) {
-                b = a;
-                a = state;
+        multiply: function (a) {
+            state *= a;
+            var func = function (b) {
+                return state *= b;
             }
-            return state = a*b;
+            return func;
         },
-        devide: function (a,b) {
-            if (arguments.length === 1) {
-                b = a;
-                a = state;
+        devide: function (a) {
+            state /= a;
+            var func = function (b) {
+                return state /= b;
             }
-            return state = a/b;
+            return func;
         },
-        subtract: function (a,b) {
-            if (arguments.length === 1) {
-                b = a;
-                a = state;
+        subtract: function (a) {
+            state -= a;
+            var func = function (b) {
+                return state -= b;
             }
-            return state = a-b;
+            return func;
         },
         getResult: function () {
             return state;
@@ -42,15 +41,15 @@ var truecalc = function () {
 
 var calc = truecalc();
 
-calc.add(4,3);
+calc.multiply(3)(2);
 console.log(calc.getResult());
+calc.add(4)(3);
 console.log(calc.getResult());
 calc.add(4);
 console.log(calc.getResult());
 calc.reset();
 console.log(calc.getResult());
-console.log(calc.multiply(3,2));
-console.log(calc.multiply(3));
+calc.multiply(3);
 console.log(calc.getResult());
 calc.devide(9);
 calc.subtract(4);

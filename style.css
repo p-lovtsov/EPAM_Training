@@ -1,36 +1,92 @@
-body {
-    background-color: #d3d3d3;
-    color: #333;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-header h1 {
-    font-family: 'Merriweather', serif;
-}
-
-header p {
-    font-family: 'Open Sans Condensed', sans-serif;
-}
-
-article>p {
-    font-family: 'Philosopher', sans-serif;
-}
-
-figcaption {
-    font-family: 'Vollkorn', serif;
-    width: 75%;
+h2 {
     margin: 0;
 }
 
-q {
-    font-family: 'Neucha', cursive;
+p {
+    color: red;
+    font-size: 13px;
+    margin: 0;
 }
 
-figure {
-    margin: 0 auto;
-    width: 100%;
+.black-line {
+    background: black;
+    height: 3px;
+    width: 550px;
+    margin: 5px 0;
 }
 
-img {
-    width: 100%;
+.hint {
+    background: #e3256b;
+    color: white;
+    width: 150px;
+    height: 25px;
+    position: relative;
+    text-align: center;
+    line-height: 25px;
+    left: -25px;
+}
+
+.hint:first-child {
+    margin-top: 65px;
+}
+
+.hint:last-child {
+    margin-top: 25px;
+}
+
+.arrow-left {
+    width: 0; 
+    height: 0; 
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent; 
+    border-right: 8px solid #e3256b;
+    position: absolute;
+    left: -8px;
+    top: 5px;
+}
+
+.group-of-labels {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.group-of-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.group-of-groups {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    height: 285px;
+}
+
+label {
+    margin: 10px;
+    margin-top: 20px;
+}
+
+input {
+    width: 200px;
+    height: 25px;
+    margin: 10px;
+    border-radius: 5px;
+    border-color: lightgrey;
+}
+
+textarea {
+    margin: 10px;
+    border-radius: 5px;
+    border-color: lightgrey;
+    width: 240px;
+}
+
+[type="submit"] {
+    width: 100px;
+    height: 30px;
+    font-weight: 600;
+    margin-left: 50px;
 }

@@ -4,29 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Джастин Бивер увлечён HTML</title>
+    <title>Form here</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather|Neucha|Open+Sans+Condensed:300|Philosopher|Vollkorn" rel="stylesheet">
 </head>
 <body>
-    <article>
-        <header>
-          <h1>Джастин Бивер: С тех пор, как я узнал HTML, моя жизнь повернулась на 180 градусов</h1>
-          <p>Написал: Дамиан Вельгошик</p>
-        </header>
-        <p>Джастин Бивер сделал признание, которого никак не ожидали даже самые 
-            большие поклонники талантливого музыканта и поэта. Молодой певец признался, 
-            что когда он набрал свой первый тег, его жизнь стала легче. Из окружения 
-            канадца сообщают, что частные наставники Бивера, Райан Лослинг и 
-            Николас Крейт, часто гуляют по Лос-Анджелесу, споря об инструменте 
-            HTML-валидатор.</p>
-            <figure>
-                <img src="http://fb.ru/media/i/2/0/3/2/0/i/20320_700x350.jpg" alt="Кот Джастина Бивера доволен">
-                <figcaption>Счастливый кот Джастина Бивера</figcaption>
-            </figure>
-            <p>Бивер уже создал несколько сайтов и не намерен останавливаться на достигнутом.
-            <q>Я, вероятно, спою об HTML в своём следующем альбоме</q>, - добавил певец.</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/TxFuiwSO9A8" frameborder="0" allowfullscreen></iframe>
-      </article>
+    <section>
+            <h2>Form here</h2>
+            <p>* required fields</p>
+            <div class="black-line"></div>
+            <form action="#" name="form">
+                <div class="group-of-groups">
+                    <div class="group-of-labels">
+                        <label for="name">Name:</label>
+                        <label for="email">Email:</label>
+                        <label for="website">Website:</label>
+                        <label for="message">Message:</label>
+                    </div>
+                    <div class="group-of-inputs">
+                        <input type="text" id="name" placeholder="введите имя" autofocus>
+                        <input type="email" id="email" placeholder="введите email">
+                        <input type="text" id="website" placeholder="placeholder text">
+                        <textarea id="message" cols="10" rows="7"></textarea>
+                    </div>
+                    <div class="group-of-hints">
+                        <div class="hint">
+                            <div class="arrow-left"></div>
+                            Form field hint
+                        </div>
+                        <div class="hint">
+                            <div class="arrow-left"></div>
+                            Form field hint
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+    </section>
 </body>
 </html>

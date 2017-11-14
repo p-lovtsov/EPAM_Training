@@ -1,16 +1,8 @@
-img {
-    clip-path: circle(130px);
-
+* {
+    margin: 0;
+    padding: 0;
 }
 
-img:nth-child(2) {
-    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-}
-
-img:nth-child(3) {
-    border-radius: 50%;
-}
-
-img:last-child {
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+body {
+    font-size: 14px;
 }

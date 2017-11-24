@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="grey"> </div>
     <menu type="context" id="topMenu">
         Top menu
         <li>Menu 1</li>
@@ -16,10 +17,17 @@
         <li>Menu 5</li>
     </menu>
     <script>
+        document.body.style.margin = '0';
+        var grey = document.querySelector(".grey");
+        grey.style.backgroundColor = 'grey';
+        grey.style.height = '50px';
         var topMenu = document.getElementById('topMenu');
         var stTopMenu = {
+            marginTop: '0',
+            marginLeft: '50px',
             width: '100px',
-            background: '#0992c5',
+            height: '30px',
+            background: '#35baf6',
             fontSize: '20px',
             color: 'white',
             padding: '10px',
@@ -31,15 +39,15 @@
         for(var keys in stTopMenu) {
             topMenu.style[keys] = stTopMenu[keys];
         }
-        var item = document.getElementsByTagName('li');
+        var item = document.querySelectorAll('li');
         var st = {
             display: 'none',
             listStyleType: 'none',
-            width: '100px',
-            background: '#0992c5',
+            width: '90px',
+            background: '#35baf6',
             fontSize: '20px',
             color: 'white',
-            padding: '10px',
+            padding: '5px',
             textAlign: 'center'
         };
         var len = item.length;
@@ -48,7 +56,34 @@
                 item[i].style[keys] = st[keys];
             }
         }
-        
+        topMenu.addEventListener("mouseover", function () {
+           for (var i = 0; i < len; i++) {
+               item[i].style.display = 'block';
+           }
+        });
+        topMenu.addEventListener("mouseover", function () {
+            topMenu.style.boxShadow = '0 0 20px #35baf6';
+            topMenu.style.position = 'relative';
+            topMenu.style.top = '200px';
+        });
+        topMenu.addEventListener('mouseleave', function () {
+            topMenu.style.boxShadow = '0 0 0';
+        });
+        topMenu.addEventListener("mouseleave", function () {
+            for (var i=0; i<len; i++) {
+                item[i].style.display = 'none';
+            }
+        });
+        // for(var i=0; i<len; i++) {
+            // item[i].addEventListener('mouseover', function () {
+                item[1].style.backgroundColor = '#03a9f4';
+            // });
+        // };
+        for (var i=0; i<len; i++) {
+            item[i].addEventListener('mouseleave', function () {
+                item[i].style.backgroundColor = '#35baf6';
+            });
+        };
     </script>
 </body>
 </html>

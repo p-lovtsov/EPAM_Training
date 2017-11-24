@@ -7,15 +7,47 @@
     <title>Document</title>
 </head>
 <body>
-    <menu type="context">
+    <menu type="context" id="topMenu">
         Top menu
-        <li>Menu1</li>
-        <li>Menu1</li>
-        <li>Menu1</li>
-        <li>Menu1</li>
-        <li>Menu1</li>
+        <li>Menu 1</li>
+        <li>Menu 2</li>
+        <li>Menu 3</li>
+        <li>Menu 4</li>
+        <li>Menu 5</li>
     </menu>
     <script>
+        var topMenu = document.getElementById('topMenu');
+        var stTopMenu = {
+            width: '100px',
+            background: '#0992c5',
+            fontSize: '20px',
+            color: 'white',
+            padding: '10px',
+            borderTop: '2px solid lightgrey',
+            borderBottomLeftRadius: '15px',
+            borderBottomRightRadius: '15px',
+            textAlign: 'center'
+        }
+        for(var keys in stTopMenu) {
+            topMenu.style[keys] = stTopMenu[keys];
+        }
+        var item = document.getElementsByTagName('li');
+        var st = {
+            display: 'none',
+            listStyleType: 'none',
+            width: '100px',
+            background: '#0992c5',
+            fontSize: '20px',
+            color: 'white',
+            padding: '10px',
+            textAlign: 'center'
+        };
+        var len = item.length;
+        for(var i = 0; i < len; i++) {
+            for(keys in st) {
+                item[i].style[keys] = st[keys];
+            }
+        }
         
     </script>
 </body>

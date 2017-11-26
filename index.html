@@ -18,6 +18,7 @@
     </menu>
     <script>
         document.body.style.margin = '0';
+        document.body.style.padding = '0';
         var grey = document.querySelector(".grey");
         grey.style.backgroundColor = 'grey';
         grey.style.height = '50px';
@@ -26,15 +27,16 @@
             marginTop: '0',
             marginLeft: '50px',
             width: '100px',
-            height: '30px',
+            height: '20px',
             background: '#35baf6',
-            fontSize: '20px',
+            fontSize: '18px',
             color: 'white',
-            padding: '10px',
+            padding: '10px 0',
             borderTop: '2px solid lightgrey',
             borderBottomLeftRadius: '15px',
             borderBottomRightRadius: '15px',
-            textAlign: 'center'
+            textAlign: 'center',
+            
         }
         for(var keys in stTopMenu) {
             topMenu.style[keys] = stTopMenu[keys];
@@ -43,12 +45,12 @@
         var st = {
             display: 'none',
             listStyleType: 'none',
-            width: '90px',
+            width: '100px',
             background: '#35baf6',
-            fontSize: '20px',
+            fontSize: '18px',
             color: 'white',
-            padding: '5px',
-            textAlign: 'center'
+            textAlign: 'center',
+            position: 'absolute',
         };
         var len = item.length;
         for(var i = 0; i < len; i++) {
@@ -57,33 +59,36 @@
             }
         }
         topMenu.addEventListener("mouseover", function () {
-           for (var i = 0; i < len; i++) {
-               item[i].style.display = 'block';
-           }
-        });
-        topMenu.addEventListener("mouseover", function () {
             topMenu.style.boxShadow = '0 0 20px #35baf6';
-            topMenu.style.position = 'relative';
-            topMenu.style.top = '200px';
         });
-        topMenu.addEventListener('mouseleave', function () {
+        topMenu.addEventListener('mouseout', function () {
             topMenu.style.boxShadow = '0 0 0';
         });
-        topMenu.addEventListener("mouseleave", function () {
-            for (var i=0; i<len; i++) {
-                item[i].style.display = 'none';
+        topMenu.addEventListener("click", function () {
+            if (item[0].style.display === 'none') {
+                var dis = 'block';
+            } else {
+                var dis = 'none';
             }
+            for (var i=0; i<len; i++) {
+                item[i].style.display = dis;
+            }
+            topMenu.style.position = 'relative';
+            topMenu.style.top = '100px';
         });
-        // for(var i=0; i<len; i++) {
-            // item[i].addEventListener('mouseover', function () {
-                item[1].style.backgroundColor = '#03a9f4';
-            // });
-        // };
-        for (var i=0; i<len; i++) {
-            item[i].addEventListener('mouseleave', function () {
+        for(var i=0; i<len; i++) {
+            item[i].addEventListener('mouseover', function () {
+                item[i].style.backgroundColor = '#03a9f4';
+            });
+            item[i].addEventListener('mouseout', function () {
                 item[i].style.backgroundColor = '#35baf6';
             });
         };
+        // for (var i=0; i<len; i++) {
+        //     item[i].addEventListener('mouseout', function () {
+        //         item[i].style.backgroundColor = '#35baf6';
+        //     });
+        // };
     </script>
 </body>
 </html>

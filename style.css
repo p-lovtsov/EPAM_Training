@@ -1,95 +1,30 @@
-* {
-    margin: 0;
-    padding: 0;
+.anim {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 150px auto;;
+    background-image: linear-gradient(to bottom, rgb(0,0,255), rgb(255,255,255));
+    animation: square 5s infinite;
+    animation-timing-function: linear;
 }
-/* Tablet */
-@media screen and (max-width: 768px) {
-    body {
-        color: red;
-    }
-}
 
-/* Desktop */
-@media screen and (min-width: 769px) {
-    body {
-        font-size: 14px;
+@keyframes square {
+    20% {
+        border-radius: 0;
     }
-    
-    .container {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    header section {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .phone, .locate, .email {
-        width: 32px;
-        height: 32px;
-    }
-
-    .phone {
-        -webkit-mask-image: url(image/phone.svg);
-    }
-
-    .locate {
-        -webkit-mask-image: url(image/phone.svg);
-    }
-
-    .email {
-        -webkit-mask-image: url(image/phone.svg);
-    }
-
-    .contacts {
-        width: 170px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    
-    .logo {
-        width: 100px;
-        height: 75px;
-        background: url(image/logo.jpg);
-        color: white;
-        font-size: 30px;
-        font-weight: 900;
-        line-height: 75px;
-        text-align: center;
-        font-style: italic;
-    }
-
-    menu {
-        list-style-type: none;
-    }
-
-    menu li {
-        display: inline-block;
-        margin: 5px;
-        border-right: 1px solid lightblue;
-    }
-
-    menu li:last-child {
-        border-right: 1px solid transparent;
-    }
-
-    menu li a {
-        text-decoration: none;
-        color:lightslategray;
-        font-size: 18px;
-        padding: 5px;
+    40% {
+        background-image: radial-gradient(red, yellow);
         
     }
-
-    menu li a:visited {
-        color: lightslategray;
+    50% {
+        transform: skew(30deg);
     }
-
-    main img {
-        width: 100%;
-        clip-path: polygon(0 0, 100% 0%, 100% 62%, 0 80%);
+    60% {
+        height: 150px;
+        width: 150px;
+        transform: rotate(360deg);
+    }
+    80% {
+        background-image: linear-gradient(to top, green, blue);
     }
 }

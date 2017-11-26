@@ -2,22 +2,225 @@
     margin: 0;
     padding: 0;
 }
-/* Tablet */
-@media screen and (max-width: 768px) {
-    body {
-        color: red;
+
+.logo {
+    width: 200px;
+    height: 75px;
+    background: url(image/logo.jpg);
+    color: darkslategray;
+    text-shadow: 5px 5px 5px white;
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 100px;
+    text-align: center;
+    font-style: italic;
+    border-radius: 15px;
+}
+
+.main-image {
+    position: relative;
+    z-index: 1;
+}
+
+.main-image h1 {
+    font-size: 7vw;
+    position: absolute;
+    z-index: 2;
+    left: 15vw;
+    top: 70px;
+    color: white;
+}
+
+main article {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+main section p {
+    width: 100vh;
+    line-height: 1.25;
+    font-size: 16px;
+}
+
+main section {
+    margin-left: 10px;
+}
+
+main .container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+[alt="mainimage"] {
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0%, 100% 62%, 0 80%);
+}
+
+menu {
+    list-style-type: none;
+    position: relative;
+}
+
+menu>svg {
+    display: none;
+}
+
+menu li {
+    display: inline-block;
+    padding: 10px 5px;
+    position: relative;
+}
+
+menu li:last-child {
+    border-right: 1px solid transparent;
+}
+
+menu li a {
+    text-decoration: none;
+    color:lightslategray;
+    font-size: 18px;
+    padding: 5px;
+}
+
+menu li a:visited {
+    color: lightslategray;
+}
+
+.triangle {
+    display: none;
+    position: absolute;
+    bottom: 0px;
+    left: 37%;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #5600ff70 transparent;
+}
+
+li:hover .triangle {
+    display: block;
+}
+
+main section h2 {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1130px) {
+
+    nav .container {
+        width: 100%;
+    }
+
+    menu li {
+        padding: 10px 0;
     }
 }
 
-/* Desktop */
+
+
+                    /* Tablet Tablet Tablet Tablet Tablet */
+
+
+
+
+@media screen and (max-width: 768px) {
+
+    .logo {
+        margin: 0 auto;
+    }
+
+    .contacts {
+        display: none;
+    }
+
+    menu>svg {
+        display: block;
+        width: 50px;
+        height: 50px;
+        float: right;
+    }
+
+    menu {
+        width: 160px;
+        position: absolute;
+        top: 69px;
+        z-index: 5;
+        left: -110px;
+    }
+
+    menu:hover li {
+        display: block;
+        left: 110px;
+        top: 50px;
+    }
+
+    menu li {
+        display: none;
+        background-color: white;
+        border-top: 1px solid lightslategrey;
+        border-right: 1px solid lightslategrey;
+    }
+
+    menu li:last-child {
+        border-bottom: 1px solid lightslategrey;
+        border-right: 1px solid lightslategrey;
+    }
+
+    .triangle {
+        display: none;
+    }
+
+    .search {
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .search img {
+        margin-right: 5px;
+    }
+
+    main .container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    main article img {
+        width: 75px;
+        height: 75px;
+    }
+}
+
+
+
+                    /* Desktop */
+
+
+
+
 @media screen and (min-width: 769px) {
     body {
         font-size: 14px;
+        color: #444;
     }
     
     .container {
         width: 80%;
         margin: 0 auto;
+    }
+
+    header {
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 
     header section {
@@ -26,70 +229,103 @@
         justify-content: space-between;
     }
 
-    .phone, .locate, .email {
-        width: 32px;
-        height: 32px;
-    }
-
-    .phone {
-        -webkit-mask-image: url(image/phone.svg);
-    }
-
-    .locate {
-        -webkit-mask-image: url(image/phone.svg);
-    }
-
-    .email {
-        -webkit-mask-image: url(image/phone.svg);
-    }
-
     .contacts {
-        width: 170px;
+        width: 200px;
+    }
+
+    .contacts-icons {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-    }
-    
-    .logo {
-        width: 100px;
-        height: 75px;
-        background: url(image/logo.jpg);
-        color: white;
-        font-size: 30px;
-        font-weight: 900;
-        line-height: 75px;
-        text-align: center;
-        font-style: italic;
+        justify-content: space-around;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
-    menu {
-        list-style-type: none;
+    .contacts-icons svg {
+        padding-top: 7px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .contacts-icons span {
+        font-size: 28px;
+    }
+
+    .phone:hover, email:hover {
+        fill: #444;
+    }
+    
+    .info {
+        text-align: center;
+        border: 2px solid #CCC;
+        border-radius: 5px;
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    .info p {
+        padding: 5px;
+    }
+
+    #info-phone {
+        display: block;
+    }
+
+    #info-locate, #info-mail{
+        display: none;
+    }
+
+    .info::before, .info::after {
+        content: ''; 
+        position: absolute;
+        left: 21px; 
+        bottom: -21px;
+        border: 10px solid transparent;
+        border-top: 10px solid #CCC;
+    }
+    
+    .info::after {
+    border-top: 10px solid white;
+    bottom: -18px; 
+    }
+
+    .locate:hover .info::before {
+        left: 88px;
+    }
+
+    .locate:hover .info::after {
+        left: 88px;
+    }
+
+    .line {
+        width: 100%;
+        height: 2px;
+        background-color: #cbdadf4a;
     }
 
     menu li {
-        display: inline-block;
-        margin: 5px;
-        border-right: 1px solid lightblue;
+        border-right: 2px solid #cbdadf4a;
     }
 
-    menu li:last-child {
-        border-right: 1px solid transparent;
+    .search {
+        float: right;
+        height: 0;
+        position: relative;
+        top: -37px;
     }
 
-    menu li a {
-        text-decoration: none;
-        color:lightslategray;
-        font-size: 18px;
-        padding: 5px;
-        
+    .search img {
+        float: left;
+        margin-top: 5px;
     }
 
-    menu li a:visited {
-        color: lightslategray;
+    .search input {
+        margin-top: 7px;
+        margin-left: 5px;
     }
 
-    main img {
-        width: 100%;
-        clip-path: polygon(0 0, 100% 0%, 100% 62%, 0 80%);
+    main article img {
+        width: 150px;
+        height: 150px;
     }
 }

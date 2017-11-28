@@ -9,39 +9,43 @@
 <body>
     <div class="grey"> </div>
     <menu type="context" id="topMenu">
-        Top menu
         <li>Menu 1</li>
         <li>Menu 2</li>
         <li>Menu 3</li>
         <li>Menu 4</li>
         <li>Menu 5</li>
+        <span>Top menu</span>
     </menu>
     <script>
-        document.body.style.margin = '0';
-        document.body.style.padding = '0';
         var grey = document.querySelector(".grey");
-        grey.style.backgroundColor = 'grey';
-        grey.style.height = '50px';
+        var topMenuSpan = document.querySelector('span');
         var topMenu = document.getElementById('topMenu');
         var stTopMenu = {
             marginTop: '0',
             marginLeft: '50px',
+            paddingLeft: '0',
+            width: '100px',
+            borderBottomLeftRadius: '15px',
+            borderBottomRightRadius: '15px'
+        }
+        var stTopMenuSpan = {
+            display: 'block',
+            width: '100px',
+            height: '20px',
             width: '100px',
             height: '20px',
             background: '#35baf6',
             fontSize: '18px',
             color: 'white',
-            padding: '10px 0',
+            paddingTop: '5px',
+            paddingBottom: '5px',
             borderTop: '2px solid lightgrey',
             borderBottomLeftRadius: '15px',
             borderBottomRightRadius: '15px',
-            textAlign: 'center',
-            
-        }
-        for(var keys in stTopMenu) {
-            topMenu.style[keys] = stTopMenu[keys];
+            textAlign: 'center'
         }
         var item = document.querySelectorAll('li');
+        var len = item.length;
         var st = {
             display: 'none',
             listStyleType: 'none',
@@ -50,45 +54,75 @@
             fontSize: '18px',
             color: 'white',
             textAlign: 'center',
-            position: 'absolute',
         };
-        var len = item.length;
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        grey.style.backgroundColor = 'grey';
+        grey.style.height = '50px';
+        for(var keys in stTopMenuSpan) {
+            topMenuSpan.style[keys] = stTopMenuSpan[keys];
+        }
+        for(var keys in stTopMenu) {
+            topMenu.style[keys] = stTopMenu[keys];
+        }
+
+        item[0].addEventListener('mouseover', function () {
+            item[0].style.backgroundColor = '#03a9f4';
+        });
+        item[1].addEventListener('mouseover', function () {
+            item[1].style.backgroundColor = '#03a9f4';
+        });
+        item[2].addEventListener('mouseover', function () {
+            item[2].style.backgroundColor = '#03a9f4';
+        });
+        item[3].addEventListener('mouseover', function () {
+            item[3].style.backgroundColor = '#03a9f4';
+        });
+        item[4].addEventListener('mouseover', function () {
+            item[4].style.backgroundColor = '#03a9f4';
+        });
+        
+        item[0].addEventListener('mouseout', function () {
+            item[0].style.backgroundColor = '#35baf6';
+        });
+        item[1].addEventListener('mouseout', function () {
+            item[1].style.backgroundColor = '#35baf6';
+        });
+        item[2].addEventListener('mouseout', function () {
+            item[2].style.backgroundColor = '#35baf6';
+        });
+        item[3].addEventListener('mouseout', function () {
+            item[3].style.backgroundColor = '#35baf6';
+        });
+        item[4].addEventListener('mouseout', function () {
+            item[4].style.backgroundColor = '#35baf6';
+        });
+
+        
         for(var i = 0; i < len; i++) {
             for(keys in st) {
                 item[i].style[keys] = st[keys];
             }
         }
-        topMenu.addEventListener("mouseover", function () {
+        topMenuSpan.addEventListener("mouseover", function () {
             topMenu.style.boxShadow = '0 0 20px #35baf6';
         });
-        topMenu.addEventListener('mouseout', function () {
+        topMenuSpan.addEventListener('mouseout', function () {
             topMenu.style.boxShadow = '0 0 0';
         });
+
         topMenu.addEventListener("click", function () {
-            if (item[0].style.display === 'none') {
+            if (item[1].style.display === 'none') {
                 var dis = 'block';
+                topMenuSpan.style.paddingTop = '200px;';
             } else {
                 var dis = 'none';
+                topMenuSpan.style.paddingTop = '5px';
             }
             for (var i=0; i<len; i++) {
                 item[i].style.display = dis;
             }
-            topMenu.style.position = 'relative';
-            topMenu.style.top = '100px';
         });
-        for(var i=0; i<len; i++) {
-            item[i].addEventListener('mouseover', function () {
-                item[i].style.backgroundColor = '#03a9f4';
-            });
-            item[i].addEventListener('mouseout', function () {
-                item[i].style.backgroundColor = '#35baf6';
-            });
-        };
-        // for (var i=0; i<len; i++) {
-        //     item[i].addEventListener('mouseout', function () {
-        //         item[i].style.backgroundColor = '#35baf6';
-        //     });
-        // };
     </script>
 </body>
 </html>

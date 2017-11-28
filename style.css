@@ -37,7 +37,6 @@ main article {
 }
 
 main section p {
-    width: 100vh;
     line-height: 1.25;
     font-size: 16px;
 }
@@ -48,7 +47,6 @@ main section {
 
 main .container {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
 }
@@ -107,23 +105,21 @@ main section h2 {
 }
 
 
+@media screen and (max-width: 480px) {
 
-
-
-
-
-
-
-@media screen and (max-width: 1130px) {
-
-    nav .container {
-        width: 100%;
+    main article {
+        flex-direction: column;
     }
 
-    menu li {
-        padding: 10px 0;
+    main article img {
+        margin: 10px auto;
     }
+
 }
+
+
+
+
 
 
 
@@ -181,7 +177,7 @@ main section h2 {
 
     .search {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         margin: 10px;
     }
 
@@ -191,12 +187,12 @@ main section h2 {
 
     main .container {
         flex-direction: column;
-        justify-content: center;
     }
 
     main article img {
         width: 75px;
         height: 75px;
+        margin-left: 10px;
     }
 }
 
@@ -329,3 +325,18 @@ main section h2 {
         height: 150px;
     }
 }
+
+@media screen and (max-width: 1130px) {
+    
+        nav .container {
+            width: 100%;
+        }
+    
+        menu li {
+            padding: 10px 0;
+        }
+    
+        main .container {
+            width: 95%;
+        }
+    }

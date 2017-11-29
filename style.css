@@ -3,6 +3,16 @@
     padding: 0;
 }
 
+svg path {
+    fill: #AAA;
+    stroke:inherit;
+    stroke-width:inherit;
+}
+
+.phone:hover svg path, .locate:hover svg path, .email:hover svg path {
+    fill: #ef4901;
+}
+
 .logo {
     width: 200px;
     height: 75px;
@@ -257,10 +267,7 @@ main section h2 {
         border-radius: 5px;
         position: relative;
         margin-bottom: 10px;
-    }
-
-    .info p {
-        padding: 5px;
+        height: 26px;
     }
 
     #info-phone {
@@ -271,27 +278,66 @@ main section h2 {
         display: none;
     }
 
-    .info::before, .info::after {
-        content: ''; 
+    #phone-triangle, #locate-triangle, #email-triangle {
+        position: relative;
+    }
+
+    #phone-triangle, #locate-triangle, #email-triangle {
+        left: 13px;
+    }
+
+    #locate-triangle, #email-triangle {
+        display: none;
+    }
+
+    .locate:hover #locate-triangle {
+        display: block;
+    }
+
+    .locate:hover #phone-triangle {
+        display: none;
+    }
+
+    .locate:hover #info-phone {
+        display: none;
+    }
+
+    .locate:hover #info-locate {
+        display: block;
+    }
+
+    .email:hover #email-triangle {
+        display: block;
+    }
+
+    .email:hover #info-mail {
+        display: block;
+    }
+
+    .triangle-up{ 
         position: absolute;
-        left: 21px; 
-        bottom: -21px;
-        border: 10px solid transparent;
-        border-top: 10px solid #CCC;
+        z-index: 2;
+        right: 15px;
+        top: -13px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 10px 0 10px;
+        border-color: white transparent transparent transparent;
     }
+    .triangle-down {
+        position: absolute;
+        z-index: 1;
+        right: 15px;
+        top: -10px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 10px 0 10px;
+        border-color: #CCC transparent transparent transparent;
+    }
+
     
-    .info::after {
-    border-top: 10px solid white;
-    bottom: -18px; 
-    }
-
-    .locate:hover .info::before {
-        left: 88px;
-    }
-
-    .locate:hover .info::after {
-        left: 88px;
-    }
 
     .line {
         width: 100%;

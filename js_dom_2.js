@@ -1,70 +1,49 @@
 var Truecalc = function () {
     var state = 0;
-    return {
-        add: function (a) {
-            return state += a;
+    this.add = function (a) {
+        state += a;
+        var func = function (b) {
+            return state += b;
         }
+        return func;
+    };
+    this.multiply = function (a) {
+        state *= a;
+        var func = function (b) {
+            return state *= b;
+        }
+        return func;
+    };
+    this.devide = function (a) {
+        state /= a;
+        var func = function (b) {
+            return state /= b;
+        }
+        return func;
+    };
+    this.subtract = function (a) {
+        state -= a;
+        var func = function (b) {
+            return state -= b;
+        }
+        return func;
+    };
+    this.getResult = function () {
+        return state;
+    };
+    this.reset = function() {
+        state = 0;
+        return state;
     }
-};
+}
 
 var calc = new Truecalc;
 
-console.log(calc.add(5));
+console.log(calc.add(5)(6));
 console.log(calc.add(4));
-
-// var truecalc = function () {
-//     state = 0;
-//     return {
-//         add: function (a) {
-//             state += a;
-//             var func = function (b) {
-//                 return state += b;
-//             }
-//             return func;
-//         },
-//         multiply: function (a) {
-//             state *= a;
-//             var func = function (b) {
-//                 return state *= b;
-//             }
-//             return func;
-//         },
-//         devide: function (a) {
-//             state /= a;
-//             var func = function (b) {
-//                 return state /= b;
-//             }
-//             return func;
-//         },
-//         subtract: function (a) {
-//             state -= a;
-//             var func = function (b) {
-//                 return state -= b;
-//             }
-//             return func;
-//         },
-//         getResult: function () {
-//             return state;
-//         },
-//         reset: function() {
-//             state = 0;
-//             return state;
-//         }
-//     }
-// }
-
-// var calc = truecalc();
-
-// calc.multiply(3)(2);
-// console.log(calc.getResult());
-// calc.add(4)(3);
-// console.log(calc.getResult());
-// calc.add(4);
-// console.log(calc.getResult());
-// calc.reset();
-// console.log(calc.getResult());
-// calc.multiply(3);
-// console.log(calc.getResult());
-// calc.devide(9);
-// calc.subtract(4);
-// console.log(calc.getResult());
+console.log(calc.getResult());
+console.log(calc.subtract(7));
+console.log(calc.getResult());
+console.log(calc.reset());
+console.log(calc.multiply(6)(9));
+console.log(calc.getResult());

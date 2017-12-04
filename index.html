@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="calc.js"></script>
+    <title>Калькулятор</title>
+</head>
+<body>
+    <h1>Калькулятор</h1>
+    <p>Задача: сделать Калькулятор</p>
+    <p>Подзадачи: при нажатии на кнопку |Создать калькулятор| добавляется новый калькулятор</p>
+    <input type="button" value="Создать калькулятор" id="newCalc">
+
+    <script>
+        window.onload = function () {
+            newCalc.addEventListener('click', function () {
+                var section = document.createElement('section');
+                document.body.appendChild(section);
+                calc = new Truecalc;
+                k();
+            });
+
+            function k () {
+                var numKeys = [0,1,2,3,4,5,6,7,8,9];
+                var actionKeys = ['+','-','*','/','='];
+                var sect = document.getElementsByTagName('section');
+                var inp = document.createElement('input');
+                var divNumKeys = document.createElement('div');
+                divNumKeys.className = "numKeys";
+                sect[sect.length-1].appendChild(inp);
+                sect[sect.length-1].appendChild(divNumKeys);
+                console.log("кнопки");
+                console.log(sect);
+                var len = numKeys.length;
+                var groupOfNumKeys = sect[sect.length-1].querySelectorAll('div');
+                groupOfNumKeys.className = "numKeys";
+                for (var i=0; i<len; i++) {
+                    var div = document.createElement('div');
+                    div.innerHTML = numKeys[i];
+                    div.className = 'btn';
+                    groupOfNumKeys[groupOfNumKeys.length-1].appendChild(div);
+                    div.addEventListener('click', function () {
+                        var inp1 = this.parentNode.previousSibling;
+                        console.log(inp1);
+                        inp1.value += this.innerText;
+                    })
+                }
+                var divActionKeys = document.createElement('div');
+                divActionKeys.className = "actionKeys";
+                sect[sect.length-1].appendChild(divActionKeys);
+                len = actionKeys.length;
+                var d = divActionKeys;
+                console.log(divActionKeys);
+                for (var i=0; i<len; i++) {
+                    var div1 = document.createElement('div');
+                    div1.innerHTML = actionKeys[i];
+                    div1.className = 'btn';
+                    divActionKeys.appendChild(div1);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

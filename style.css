@@ -1,0 +1,25 @@
+.btn {
+    margin: 3px;
+    border: 1px solid darkslategray;
+    padding: 5px;
+    display: inline-block;
+}
+
+#newCalc {
+    width: 170px;
+}
+
+section {
+    width: 200px;
+    background-color: lightblue;
+    margin: 10px;
+}
+
+input {
+    width: 90%;
+    margin: 5px;
+}
+
+.numKeys {
+    width: 70%;
+}

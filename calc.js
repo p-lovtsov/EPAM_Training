@@ -38,12 +38,3 @@ var Truecalc = function () {
 }
 
 var calc = new Truecalc;
-
-console.log(calc.add(5)(6));
-console.log(calc.add(4));
-console.log(calc.getResult());
-console.log(calc.subtract(7));
-console.log(calc.getResult());
-console.log(calc.reset());
-console.log(calc.multiply(6)(9));
-console.log(calc.getResult());

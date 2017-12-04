@@ -32,8 +32,6 @@
                 divNumKeys.className = "numKeys";
                 sect[sect.length-1].appendChild(inp);
                 sect[sect.length-1].appendChild(divNumKeys);
-                console.log("кнопки");
-                console.log(sect);
                 var len = numKeys.length;
                 var groupOfNumKeys = sect[sect.length-1].querySelectorAll('div');
                 groupOfNumKeys.className = "numKeys";
@@ -44,7 +42,6 @@
                     groupOfNumKeys[groupOfNumKeys.length-1].appendChild(div);
                     div.addEventListener('click', function () {
                         var inp1 = this.parentNode.previousSibling;
-                        console.log(inp1);
                         inp1.value += this.innerText;
                     })
                 }

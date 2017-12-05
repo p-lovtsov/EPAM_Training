@@ -1,3 +1,7 @@
+h1 {
+    text-align: center;
+}
+
 .btn {
     margin: 3px;
     border: 1px solid darkslategray;
@@ -13,6 +17,7 @@ section {
     width: 200px;
     background-color: lightblue;
     margin: 10px;
+    display: inline-block;
 }
 
 input {

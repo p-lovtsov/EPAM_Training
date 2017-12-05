@@ -1,11 +1,11 @@
 var Truecalc = function () {
     var state = 0;
     this.add = function (a) {
-        state += a;
-        var func = function (b) {
-            return state += b;
-        }
-        return func;
+        state += +a;
+        // var func = function (b) {
+        //     return state += b;
+        // }
+        return state;
     };
     this.multiply = function (a) {
         state *= a;

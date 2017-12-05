@@ -10,10 +10,8 @@
 </head>
 <body>
     <h1>Калькулятор</h1>
-    <p>Задача: сделать Калькулятор</p>
-    <p>Подзадачи: при нажатии на кнопку |Создать калькулятор| добавляется новый калькулятор</p>
     <input type="button" value="Создать калькулятор" id="newCalc">
-
+    <hr>
     <script>
         window.onload = function () {
             newCalc.addEventListener('click', function () {
@@ -21,14 +19,16 @@
                 document.body.appendChild(section);
                 calc = new Truecalc;
                 k();
+                
             });
 
             function k () {
                 var numKeys = [0,1,2,3,4,5,6,7,8,9];
-                var actionKeys = ['+','-','*','/','='];
+                var actionKeys = ['C','+','-','*','/','='];
                 var sect = document.getElementsByTagName('section');
                 var inp = document.createElement('input');
                 var divNumKeys = document.createElement('div');
+                inp.setAttribute.type = "number";
                 divNumKeys.className = "numKeys";
                 sect[sect.length-1].appendChild(inp);
                 sect[sect.length-1].appendChild(divNumKeys);
@@ -56,6 +56,43 @@
                     div1.innerHTML = actionKeys[i];
                     div1.className = 'btn';
                     divActionKeys.appendChild(div1);
+                    if (actionKeys[i] === '+') {
+                        div1.addEventListener('click', function () {
+                            var inp1 = this.parentNode.previousSibling.previousSibling;
+                            var num = parseInt(inp1.value);
+                            calc.add(inp1.value);
+                        });
+                    }
+                    if (actionKeys[i] === "C") {
+                        div1.addEventListener('click', function () {
+                            var inp1 = this.parentNode.previousSibling.previousSibling;
+                            inp1.value = '0';
+                        });
+                    }
+                    if (actionKeys[i] === '=') {
+                        div1.addEventListener('click', function () {
+                            var inp1 = this.parentNode.previousSibling.previousSibling;
+                            inp1.value = calc.getResult();
+                        });
+                    }
+                    if (actionKeys[i] === "-") {
+                        div1.addEventListener ('click', function () {
+                            var inp1 = this.parentNode.previousSibling.previousSibling;
+                            calc.subtract(inp1.value);
+                        });
+                    }
+                    if (actionKeys[i] === '*') {
+                        div1.addEventListener ('click', function () {
+                            var inp1 = this.parentNode.previousSibling.previousSibling;
+                            calc.multiply(inp1.value);
+                        });
+                    }
+                    if (actionKeys[i] === "/") {
+                        div1.addEventListener ('click', function () {
+                            var inp1 = this.parentNode.previousSibling.previousSibling;
+                            calc.devide(inp1.value);
+                        });
+                    }
                 }
             }
         }

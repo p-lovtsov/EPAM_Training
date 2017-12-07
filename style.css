@@ -9,13 +9,18 @@ h1 {
     display: inline-block;
 }
 
+.btn:hover {
+    background: lightgoldenrodyellow;
+    cursor: default;
+}
+
 #newCalc {
     width: 170px;
 }
 
 section {
     width: 200px;
-    background-color: lightblue;
+    background-color: lightskyblue;
     margin: 10px;
     display: inline-block;
 }
@@ -23,6 +28,7 @@ section {
 input {
     width: 90%;
     margin: 5px;
+    text-align: right;
 }
 
 .numKeys {

@@ -36,5 +36,3 @@ var Truecalc = function () {
         return state;
     }
 }
-
-var calc = new Truecalc;

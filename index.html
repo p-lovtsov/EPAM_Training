@@ -18,20 +18,29 @@
                 var section = document.createElement('section');
                 document.body.appendChild(section);
                 calc = new Truecalc;
-                k();
+                draw();
                 
             });
 
-            function k () {
-                var numKeys = [0,1,2,3,4,5,6,7,8,9];
+            function draw () {
+                var operands = ['', ''];
+                var curOperands = 0;
+                var currentFunc = null;
+                var isOperator = true;
+                var numKeys = [0,1,2,3,4,5,6,7,8,9,'.'];
                 var actionKeys = ['C','+','-','*','/','='];
                 var sect = document.getElementsByTagName('section');
                 var inp = document.createElement('input');
                 var divNumKeys = document.createElement('div');
-                inp.setAttribute.type = "number";
                 divNumKeys.className = "numKeys";
                 sect[sect.length-1].appendChild(inp);
                 sect[sect.length-1].appendChild(divNumKeys);
+                divNumKeys.addEventListener('click', function () {
+                    isOperator = true;
+                    if (event.target.className === "btn") {
+                        this.previousSibling.value += event.target.innerHTML;
+                    }
+                });
                 var len = numKeys.length;
                 var groupOfNumKeys = sect[sect.length-1].querySelectorAll('div');
                 groupOfNumKeys.className = "numKeys";
@@ -40,59 +49,56 @@
                     div.innerHTML = numKeys[i];
                     div.className = 'btn';
                     groupOfNumKeys[groupOfNumKeys.length-1].appendChild(div);
-                    div.addEventListener('click', function () {
-                        var inp1 = this.parentNode.previousSibling;
-                        inp1.value += this.innerText;
-                    })
                 }
-                var divActionKeys = document.createElement('div');
-                divActionKeys.className = "actionKeys";
-                sect[sect.length-1].appendChild(divActionKeys);
+                var groupActionKeys = document.createElement('div');
+                var operators = ['+', '-', '/', '*'];
+                groupActionKeys.className = "actionKeys";
+                sect[sect.length-1].appendChild(groupActionKeys);
+                groupActionKeys.addEventListener('click', function () {
+                    if (isOperator && operators.some(function (el) {
+                        return el === event.target.innerHTML;
+                    })) {
+                        if (event.target.className === 'btn') {
+                            this.previousSibling.previousSibling.value += event.target.innerHTML;
+                            
+                        }
+                        if (curOperands[0] !== '') {
+                            switch (event.target.innerHTML) {
+                                case '+': 
+                                    currentFunc = calc.add(operands[0]);
+                                    break;
+                                case '-':
+                                    currentFunc = calc.subtruct(operands[0]);
+                                    break;
+                                case '*':
+                                    currentFunc = calc.multiply(operands[0]);
+                                    break;
+                                case "/":
+                                    currentFunc = calc.devide(operands[0]);
+                                    break;
+                            }
+                        }
+                        curOperands = 1;
+                        isOperator = false;
+                    }
+                    if (event.target.innerHTML === '=') {
+                        currentFunc(operands[1]);
+                        this.previousSibling.previousSibling.value = getResult();
+                    }
+                    if (event.target.innerHTML === 'C') {
+                        calc.reset();
+                        curOperands = 0;
+                        currentFunc = null;
+                        isOperator = true;
+                        this.previousSibling.previousSibling.value = '';
+                    }
+                })
                 len = actionKeys.length;
-                var d = divActionKeys;
-                console.log(divActionKeys);
                 for (var i=0; i<len; i++) {
                     var div1 = document.createElement('div');
                     div1.innerHTML = actionKeys[i];
                     div1.className = 'btn';
-                    divActionKeys.appendChild(div1);
-                    if (actionKeys[i] === '+') {
-                        div1.addEventListener('click', function () {
-                            var inp1 = this.parentNode.previousSibling.previousSibling;
-                            var num = parseInt(inp1.value);
-                            calc.add(inp1.value);
-                        });
-                    }
-                    if (actionKeys[i] === "C") {
-                        div1.addEventListener('click', function () {
-                            var inp1 = this.parentNode.previousSibling.previousSibling;
-                            inp1.value = '0';
-                        });
-                    }
-                    if (actionKeys[i] === '=') {
-                        div1.addEventListener('click', function () {
-                            var inp1 = this.parentNode.previousSibling.previousSibling;
-                            inp1.value = calc.getResult();
-                        });
-                    }
-                    if (actionKeys[i] === "-") {
-                        div1.addEventListener ('click', function () {
-                            var inp1 = this.parentNode.previousSibling.previousSibling;
-                            calc.subtract(inp1.value);
-                        });
-                    }
-                    if (actionKeys[i] === '*') {
-                        div1.addEventListener ('click', function () {
-                            var inp1 = this.parentNode.previousSibling.previousSibling;
-                            calc.multiply(inp1.value);
-                        });
-                    }
-                    if (actionKeys[i] === "/") {
-                        div1.addEventListener ('click', function () {
-                            var inp1 = this.parentNode.previousSibling.previousSibling;
-                            calc.devide(inp1.value);
-                        });
-                    }
+                    groupActionKeys.appendChild(div1);
                 }
             }
         }

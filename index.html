@@ -4,104 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
-    <script src="calc.js"></script>
-    <title>Калькулятор</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Калькулятор</h1>
-    <input type="button" value="Создать калькулятор" id="newCalc">
-    <hr>
-    <script>
-        window.onload = function () {
-            newCalc.addEventListener('click', function () {
-                var section = document.createElement('section');
-                document.body.appendChild(section);
-                calc = new Truecalc;
-                draw();
-                
-            });
-
-            function draw () {
-                var operands = ['', ''];
-                var curOperands = 0;
-                var currentFunc = null;
-                var isOperator = true;
-                var numKeys = [0,1,2,3,4,5,6,7,8,9,'.'];
-                var actionKeys = ['C','+','-','*','/','='];
-                var sect = document.getElementsByTagName('section');
-                var inp = document.createElement('input');
-                var divNumKeys = document.createElement('div');
-                divNumKeys.className = "numKeys";
-                sect[sect.length-1].appendChild(inp);
-                sect[sect.length-1].appendChild(divNumKeys);
-                divNumKeys.addEventListener('click', function () {
-                    isOperator = true;
-                    if (event.target.className === "btn") {
-                        this.previousSibling.value += event.target.innerHTML;
-                    }
-                });
-                var len = numKeys.length;
-                var groupOfNumKeys = sect[sect.length-1].querySelectorAll('div');
-                groupOfNumKeys.className = "numKeys";
-                for (var i=0; i<len; i++) {
-                    var div = document.createElement('div');
-                    div.innerHTML = numKeys[i];
-                    div.className = 'btn';
-                    groupOfNumKeys[groupOfNumKeys.length-1].appendChild(div);
-                }
-                var groupActionKeys = document.createElement('div');
-                var operators = ['+', '-', '/', '*'];
-                groupActionKeys.className = "actionKeys";
-                sect[sect.length-1].appendChild(groupActionKeys);
-                groupActionKeys.addEventListener('click', function () {
-                    if (isOperator && operators.some(function (el) {
-                        return el === event.target.innerHTML;
-                    })) {
-                        if (event.target.className === 'btn') {
-                            this.previousSibling.previousSibling.value += event.target.innerHTML;
-                            
-                        }
-                        if (curOperands[0] !== '') {
-                            switch (event.target.innerHTML) {
-                                case '+': 
-                                    currentFunc = calc.add(operands[0]);
-                                    break;
-                                case '-':
-                                    currentFunc = calc.subtruct(operands[0]);
-                                    break;
-                                case '*':
-                                    currentFunc = calc.multiply(operands[0]);
-                                    break;
-                                case "/":
-                                    currentFunc = calc.devide(operands[0]);
-                                    break;
-                            }
-                        }
-                        curOperands = 1;
-                        isOperator = false;
-                    }
-                    if (event.target.innerHTML === '=') {
-                        currentFunc(operands[1]);
-                        this.previousSibling.previousSibling.value = getResult();
-                    }
-                    if (event.target.innerHTML === 'C') {
-                        calc.reset();
-                        curOperands = 0;
-                        currentFunc = null;
-                        isOperator = true;
-                        this.previousSibling.previousSibling.value = '';
-                    }
-                })
-                len = actionKeys.length;
-                for (var i=0; i<len; i++) {
-                    var div1 = document.createElement('div');
-                    div1.innerHTML = actionKeys[i];
-                    div1.className = 'btn';
-                    groupActionKeys.appendChild(div1);
-                }
-            }
-        }
-    </script>
+    <input type="number" name="inp" id="deb" value='123'>
+    <script src="debounce.js"></script>
 </body>
 </html>

@@ -23,12 +23,14 @@
             });
 
             function draw () {
+                console.log(calc);
                 var operands = ['', ''];
                 var curOperands = 0;
                 var currentFunc = null;
-                var isOperator = true;
-                var numKeys = [0,1,2,3,4,5,6,7,8,9,'.'];
-                var actionKeys = ['C','+','-','*','/','='];
+                var isOperator = false;
+                var operator = null;
+                var numKeys = [0,1,2,3,4,5,6,7,8,9];
+                var actionKeys = ['+','-','*','/','=','C'];
                 var sect = document.getElementsByTagName('section');
                 var inp = document.createElement('input');
                 var divNumKeys = document.createElement('div');
@@ -54,45 +56,67 @@
                 var operators = ['+', '-', '/', '*'];
                 groupActionKeys.className = "actionKeys";
                 sect[sect.length-1].appendChild(groupActionKeys);
+
                 groupActionKeys.addEventListener('click', function () {
+                    //проверка будет ли сейчас введен оператор
                     if (isOperator && operators.some(function (el) {
                         return el === event.target.innerHTML;
                     })) {
                         if (event.target.className === 'btn') {
-                            this.previousSibling.previousSibling.value += event.target.innerHTML;
-                            
-                        }
-                        if (curOperands[0] !== '') {
-                            switch (event.target.innerHTML) {
-                                case '+': 
-                                    currentFunc = calc.add(operands[0]);
-                                    break;
-                                case '-':
-                                    currentFunc = calc.subtruct(operands[0]);
-                                    break;
-                                case '*':
-                                    currentFunc = calc.multiply(operands[0]);
-                                    break;
-                                case "/":
-                                    currentFunc = calc.devide(operands[0]);
-                                    break;
+                            if (operands[0] !== '') {
+                                var re = /\D/;
+                                operands[1] = this.previousSibling.previousSibling.value;
+                                var ind = operands[1].match(re).index;
+                                var str = operands[1].slice(++ind);
+                                currentFunc(operands[0])(str);
+                                this.previousSibling.previousSibling.value = calc.getResult();
+                                curOperands = 0;
+                                operands = ['',''];
+                                isOperator = true;
+                            } else {
+                                operator = event.target.innerHTML;
+                                operands[curOperands] = this.previousSibling.previousSibling.value;
+                                this.previousSibling.previousSibling.value += event.target.innerHTML;
+                                curOperands = 1;
+                                isOperator = false;
+                                console.log(operator);
+                                switch (operator) {
+                                    case '+':
+                                        currentFunc = calc.add;
+                                        break;
+                                    case '-':
+                                        currentFunc = calc.subtract;
+                                        break;
+                                    case '*':
+                                        currentFunc = calc.multiply;
+                                        break;
+                                    case "/":
+                                        currentFunc = calc.devide;
+                                        break;
+                                }
                             }
                         }
-                        curOperands = 1;
-                        isOperator = false;
                     }
                     if (event.target.innerHTML === '=') {
-                        currentFunc(operands[1]);
-                        this.previousSibling.previousSibling.value = getResult();
+                        var re = /\D/;
+                        operands[1] = this.previousSibling.previousSibling.value;
+                        var ind = operands[1].match(re).index;
+                        var str = operands[1].slice(++ind);
+                        console.log(operands);
+                        currentFunc(operands[0])(str);
+                        this.previousSibling.previousSibling.value = calc.getResult();
+                        operands = ['',''];
                     }
                     if (event.target.innerHTML === 'C') {
                         calc.reset();
                         curOperands = 0;
                         currentFunc = null;
-                        isOperator = true;
+                        isOperator = false;
                         this.previousSibling.previousSibling.value = '';
+                        operands = ['',''];
                     }
                 })
+                //прорисовка кнопок действия
                 len = actionKeys.length;
                 for (var i=0; i<len; i++) {
                     var div1 = document.createElement('div');

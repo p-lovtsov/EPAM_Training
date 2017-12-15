@@ -1,38 +1,43 @@
 var Truecalc = function () {
     var state = 0;
+
     this.add = function (a) {
-        state += +a;
-        // var func = function (b) {
-        //     return state += b;
-        // }
-        return state;
+        state += parseInt(a);
+        return function (b) {
+            return state += parseInt(b);
+        }
     };
+
     this.multiply = function (a) {
-        state *= a;
-        var func = function (b) {
-            return state *= b;
+        state *= parseInt(a);
+        return function (b) {
+            return state *= parseInt(b);
         }
-        return func;
     };
+
     this.devide = function (a) {
-        state /= a;
-        var func = function (b) {
-            return state /= b;
+        state /= parseInt(a);
+        return function (b) {
+            return state /= parseInt(b);
         }
-        return func;
     };
+
     this.subtract = function (a) {
-        state -= a;
-        var func = function (b) {
-            return state -= b;
+        state -= parseInt(a);
+        return function (b) {
+            return state -= parseInt(b);
         }
-        return func;
     };
+
     this.getResult = function () {
         return state;
     };
+
     this.reset = function() {
         state = 0;
         return state;
     }
 }
+
+var calc1 = new Truecalc;
+console.log(calc1.subtract(3)(2));

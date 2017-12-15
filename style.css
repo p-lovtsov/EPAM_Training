@@ -33,4 +33,10 @@ input {
 
 .numKeys {
     width: 70%;
+    float: left;
+}
+
+.actionKeys {
+    float: left;
+    width: 30%;
 }

@@ -3,12 +3,21 @@ h1 {
     font-weight: 100;
     text-align: center;
     color: #334d5c;
-    margin-top: 0;
+    margin: 0;
+}
+
+#inp {
+    height: 30px;
+    width: 88%;
+    margin: 7px;
+
 }
 
 input[type='checkbox'] {
     width: 25px;
     height: 25px;
+    margin: 7px;
+    margin-left: 10px;
 }
 
 .task {
@@ -16,15 +25,15 @@ input[type='checkbox'] {
     font-size: 20px;
 }
 
-.check {
+#allComplete {
     visibility: hidden;
     float: left;
+    margin-top: 14px;
 }
 
 section {
+    margin: 0 auto;
     border: 1px solid grey;
     width: 500px;
 }
-.container {
-    margin: 0 auto;
-}
+

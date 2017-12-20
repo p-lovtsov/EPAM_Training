@@ -13,8 +13,7 @@
     <div class="container">
             <section>
                 <input type="checkbox" name="allComplete" id="allComplete" class = 'check'>
-                <input type="text" id="inp" placeholder="What needs to be done?">
-                <hr>
+                <input type="text" id="inp" placeholder="What needs to be done?" focused>
             </section>
     </div>
     <script>
@@ -25,7 +24,7 @@
             var arrOftId = tId.split('-');
             return arrOftId[0];
         }
-        
+
         function init () {
             var inp = document.querySelector('#inp');
             inp.addEventListener("keydown", function () {
@@ -37,12 +36,13 @@
                     text.innerText = inp.value + " " + taskId();
                     var sec = document.querySelector('section');
                     sec.appendChild(item);
-                    item.appendChild(text);
+                    
                     inp.value = '';
                     var itemCheck = document.createElement('input');
                     itemCheck.type = 'checkbox';
                     console.log(itemCheck);
-                    sec.appendChild(itemCheck);
+                    item.appendChild(itemCheck);
+                    item.appendChild(text);
                     console.dir(allComplete);
                     console.log(allComplete.checked);
                 }

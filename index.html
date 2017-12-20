@@ -10,26 +10,36 @@
     <h1>AJAX</h1>
     <label for="inp">Введите адрес:</label>
     <input type="text" id="inp">
-    <input type="button" value="Ввод">
+    <button id="button">Ввод</button>
+    <div id="town"></div>
+    <div id="result"></div>
     <script>
-        // 1. Создаём новый объект XMLHttpRequest
-        var xhr = new XMLHttpRequest();
-
-        // 2. Конфигурируем его: GET-запрос на URL
-        xhr.open('GET', 'response.json', true);
-//        'https://maps.googleapis.com/maps/api/geocode/json?address=Moscow&key=AIzaSyBaUGUScX63cjTTVXd0m5szBaQZNAwhHTU'
-        // 3. Отсылаем запрос
-        xhr.send();
-
-        // 4. Если код ответа сервера не 200, то это ошибка
-        if (xhr.status != 200) {
-        // обработать ошибку
-        console.log( "Ошибка " + xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-        } else {
-        // вывести результат
-        console.log( 'Результат ' + xhr.responseText ); // responseText -- текст ответа.
+        button.addEventListener('click', function () {
+            var city = inp.value;
+            var res = init(city);
+        })
+        function init (city) {
+            if (city === '') {
+                city = 'Москва';
+            }
+            var locate = 'https://maps.googleapis.com/maps/api/geocode/json?address='+city+'&key=AIzaSyBaUGUScX63cjTTVXd0m5szBaQZNAwhHTU';
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', locate, true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) return;
+                if (xhr.status != 200) {
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    var json = JSON.parse(xhr.responseText);
+                    lat = json.results[0].geometry.location.lat;
+                    lng = json.results[0].geometry.location.lng;
+                    town.innerHTML = city;
+                    result.innerHTML = 'Lat = ' + lat.toFixed(5) +' Lng = ' + lng.toFixed(5);
+                    inp.value = '';
+                }
+            }
         }
-        console.log(xhr.readyState);
     </script>
 </body>
 </html>

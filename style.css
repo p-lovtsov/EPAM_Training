@@ -1,3 +1,30 @@
+h1 {
+    font-size: 100px;
+    font-weight: 100;
+    text-align: center;
+    color: #334d5c;
+    margin-top: 0;
+}
+
+input[type='checkbox'] {
+    width: 25px;
+    height: 25px;
+}
+
 .task {
     color: #333;
+    font-size: 20px;
+}
+
+.check {
+    visibility: hidden;
+    float: left;
+}
+
+section {
+    border: 1px solid grey;
+    width: 500px;
+}
+.container {
+    margin: 0 auto;
 }

@@ -5,36 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <script src="http://wzrd.in/standalone/uuid%2Fv1@latest"></script>
     <title>ToDo</title>
 </head>
 <body>
     <h1>To-Do</h1>
-    
-    <section>
-        <label for="inp">Введите задание</label>
-        <input type="text" id="inp" placeholder="What needs to be done?">
-    </section>
+    <div class="container">
+            <section>
+                <input type="checkbox" name="allComplete" id="allComplete" class = 'check'>
+                <input type="text" id="inp" placeholder="What needs to be done?">
+                <hr>
+            </section>
+    </div>
     <script>
-       window.onload = init();
+        window.onload = init();
 
-       function init () {
+        function taskId () {
+            var tId = uuidv1();
+            var arrOftId = tId.split('-');
+            return arrOftId[0];
+        }
+        
+        function init () {
             var inp = document.querySelector('#inp');
-            console.log(inp);
             inp.addEventListener("keydown", function () {
-                if (event.keyCode === 13 ) {
-                    var div = document.createElement('div');
-                    div.className = 'task';
-                    div.innerText = inp.value;
+                if (event.keyCode === 13 && inp.value !== "") {
+                    allComplete.style.visibility = 'visible';
+                    var item = document.createElement('div');
+                    var text = document.createElement('span');
+                    item.className = 'task';
+                    text.innerText = inp.value + " " + taskId();
                     var sec = document.querySelector('section');
-                    sec.appendChild(div);
+                    sec.appendChild(item);
+                    item.appendChild(text);
                     inp.value = '';
-                    var radio = document.createElement('input');
-                    radio.type = 'checkbox';
-                    console.log(radio);
-                    sec.appendChild(radio);
+                    var itemCheck = document.createElement('input');
+                    itemCheck.type = 'checkbox';
+                    console.log(itemCheck);
+                    sec.appendChild(itemCheck);
+                    console.dir(allComplete);
+                    console.log(allComplete.checked);
                 }
             }, false);
-       }
+        }
+        allComplete.addEventListener('checked', function () {
+            console.log('1');
+       })
     </script>
 </body>
 </html>

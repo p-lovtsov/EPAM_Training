@@ -4,32 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AJAX</title>
+    <link rel="stylesheet" href="style.css">
+    <title>ToDo</title>
 </head>
 <body>
-    <h1>AJAX</h1>
-    <label for="inp">Введите адрес:</label>
-    <input type="text" id="inp">
-    <input type="button" value="Ввод">
+    <h1>To-Do</h1>
+    
+    <section>
+        <label for="inp">Введите задание</label>
+        <input type="text" id="inp" placeholder="What needs to be done?">
+    </section>
     <script>
-        // 1. Создаём новый объект XMLHttpRequest
-        var xhr = new XMLHttpRequest();
+       window.onload = init();
 
-        // 2. Конфигурируем его: GET-запрос на URL
-        xhr.open('GET', 'response.json', true);
-//        'https://maps.googleapis.com/maps/api/geocode/json?address=Moscow&key=AIzaSyBaUGUScX63cjTTVXd0m5szBaQZNAwhHTU'
-        // 3. Отсылаем запрос
-        xhr.send();
-
-        // 4. Если код ответа сервера не 200, то это ошибка
-        if (xhr.status != 200) {
-        // обработать ошибку
-        console.log( "Ошибка " + xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-        } else {
-        // вывести результат
-        console.log( 'Результат ' + xhr.responseText ); // responseText -- текст ответа.
-        }
-        console.log(xhr.readyState);
+       function init () {
+            var inp = document.querySelector('#inp');
+            console.log(inp);
+            inp.addEventListener("keydown", function () {
+                if (event.keyCode === 13 ) {
+                    var div = document.createElement('div');
+                    div.className = 'task';
+                    div.innerText = inp.value;
+                    var sec = document.querySelector('section');
+                    sec.appendChild(div);
+                    inp.value = '';
+                    var radio = document.createElement('input');
+                    radio.type = 'checkbox';
+                    console.log(radio);
+                    sec.appendChild(radio);
+                }
+            }, false);
+       }
     </script>
 </body>
 </html>

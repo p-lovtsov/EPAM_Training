@@ -1,3 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 5px;
+    width: 415px;
+    overflow: hidden;
+}
+
+body {
+    height: 90%;
+    width: 90%;
+    background-color: #f5f5f5;
+}
+
 h1 {
     font-size: 100px;
     font-weight: 100;
@@ -10,7 +27,14 @@ h1 {
     height: 30px;
     width: 88%;
     margin: 7px;
+    font-size: 22px;
+    color: #333;
+    border: 0;
+    padding-left: 4px;
+}
 
+#inp:focus {
+    border: 0;
 }
 
 input[type='checkbox'] {
@@ -22,18 +46,26 @@ input[type='checkbox'] {
 
 .task {
     color: #333;
-    font-size: 20px;
+    font-size: 22px;
+    display: flex;
 }
 
 #allComplete {
     visibility: hidden;
     float: left;
-    margin-top: 14px;
+    margin-top: 12px;
+}
+
+.close-btn {
+    width: 20px;
+    height: 20px;
+    background-image: url(close.svg);
+    margin-top: 5px;
 }
 
 section {
-    margin: 0 auto;
+    margin: 10px auto 25px;
     border: 1px solid grey;
     width: 500px;
+    background-color: #fff;
 }
-

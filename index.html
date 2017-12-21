@@ -17,56 +17,6 @@
                 <hr>
             </section>
     </div>
-    <script>
-        function Task (text) {
-            this.id = taskId(),
-            this.text = text,
-            this.complete = false
-        }
-        Task.prototype.ready = function () {
-            this.complete = true;
-        }
-        Task.prototype.notComplete = function () {
-            this.complete = false;
-        }
-
-        var task = new Task(5);
-
-        function taskId () {
-            var tId = uuidv1();
-            var arrOftId = tId.split('-');
-            return arrOftId[0];
-        }
-
-        var inp = document.querySelector('#inp');
-        inp.addEventListener("keydown", function () {
-            if (event.keyCode === 13 && inp.value !== "") {
-                allComplete.style.visibility = 'visible';
-                var item = document.createElement('div');
-                var text = document.createElement('p');
-                item.className = 'task';
-                text.innerText = inp.value + " " + taskId();
-                var sec = document.querySelector('section');
-                sec.appendChild(item);
-                
-                inp.value = '';
-                var itemCheck = document.createElement('input');
-                var close = document.createElement('svg');
-                close.className = 'close-btn';
-                itemCheck.type = 'checkbox';
-                console.log(itemCheck);
-                item.appendChild(itemCheck);
-                item.appendChild(text);
-                item.appendChild(close);
-                item.addEventListener('mouseover', function () {
-                    console.log(6);
-                } )
-            }
-        }, false);
-
-        allComplete.addEventListener('checked', function () {
-            console.log('1');
-       })
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-    font-size: 100px;
+    font-size: 70px;
     font-weight: 100;
     text-align: center;
     color: #334d5c;
@@ -44,10 +44,19 @@ input[type='checkbox'] {
     margin-left: 10px;
 }
 
+input[type='checkbox']:checked>p {
+    color: grey;
+    text-decoration: line-through;
+}
+
 .task {
     color: #333;
     font-size: 22px;
     display: flex;
+}
+
+.task:hover>.close-btn {
+    visibility: visible;
 }
 
 #allComplete {
@@ -61,6 +70,7 @@ input[type='checkbox'] {
     height: 20px;
     background-image: url(close.svg);
     margin-top: 5px;
+    visibility: hidden;
 }
 
 section {

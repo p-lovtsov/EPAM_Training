@@ -103,10 +103,18 @@ footer {
     padding: 3px 7px;
 }
 
-#btn-all {
-    margin-left: 50px;
+#btnAll {
+    margin-left: 70px;
 }
 
-#clear-complete {
+#clearComplete {
     visibility: hidden;
+    margin: 3px;
+    padding: 3px 7px;
+    margin-left: 43px;
+}
+
+#clearComplete:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

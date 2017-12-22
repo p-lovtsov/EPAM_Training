@@ -5,7 +5,9 @@ function init () {
     if (localStorage.length) {
         var len = localStorage.length;
         for(var i=0; i<len; i++) {
-            console.log(localStorage.key(i));
+            var lsid = localStorage.key(i);
+            var obj = JSON.parse(localStorage.getItem(lsid));
+            drawTask(obj.id, obj.text, obj.complete);
         }
     }
 }
@@ -28,8 +30,13 @@ function taskId () {
     return arrOftId[0];
 }
 
-function draw () {
-    var task = new Task(inp.value);
+function drawTask (tid, ttext, tcomplete) {
+    if (!arguments.length) {
+        var task = new Task(inp.value);
+        inp.value = '';
+    } else {
+        var task = {id: tid, text: ttext, complete: tcomplete}
+    }
     todo.push(task);
     var foot = document.querySelector('footer');
     foot.style.visibility = 'visible';
@@ -44,7 +51,6 @@ function draw () {
     localStorage.setItem(task.id, taskToLocalStorage);
     var sec = document.querySelector('section');
     sec.appendChild(item);
-    inp.value = '';
     var itemCheck = document.createElement('input');
     var close = document.createElement('svg');
     close.className = 'close-btn';
@@ -58,7 +64,6 @@ function draw () {
         localStorage.removeItem(id);
         for (var i=0; i<len; i++) {
             var arrid = todo[i];
-            // console.log('arrid=' + arrid.id, 'id.parent = '+ id);
             if (arrid.id === id) {
                 todo.splice(i,1);
             }
@@ -69,18 +74,36 @@ function draw () {
         }
         this.parentElement.remove();
     });
+    itemCheck.addEventListener('change', function () {
+        var status = this.checked;
+        var iid = this.parentElement.id;
+        console.log(status, iid);
+        var len = todo.length;
+        for (var i=0; i<len; i++) {
+            if (todo[i].id === iid) {
+                todo[i].complete = status;
+            }
+            console.log(todo[i].complete);
+        }
+    })
 }
 
 var inp = document.querySelector('#inp');
 inp.addEventListener("keydown", function () {
     if (event.keyCode === 13 && inp.value !== "") {
-        draw();
+        drawTask();
     }
 }, false);
-allComplete.addEventListener('change', function () {
-    console.log(this.checked);
 
+allComplete.addEventListener('change', function () {
+    var status = this.checked;
     todo.forEach(function (el) {
-        console.log(el.id);
-    })
+        el.complete = status;
+    });
+    
+    if (status) {
+        clearComplete.style.visibility = 'visible';
+    } else {
+        clearComplete.style.visibility = 'hidden';
+    }
 }, true);

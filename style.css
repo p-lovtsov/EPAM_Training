@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-p {
+.text {
     margin: 5px;
     width: 415px;
     overflow: hidden;
@@ -44,7 +44,7 @@ input[type='checkbox'] {
     margin-left: 10px;
 }
 
-input[type='checkbox']:checked>p {
+input[type='checkbox']:checked+p {
     color: grey;
     text-decoration: line-through;
 }
@@ -74,8 +74,39 @@ input[type='checkbox']:checked>p {
 }
 
 section {
-    margin: 10px auto 25px;
+    margin: 0 auto;
     border: 1px solid grey;
     width: 500px;
     background-color: #fff;
+}
+
+footer {
+    visibility: hidden;
+    margin: 0 auto 25px;
+    border: 1px solid grey;
+    border-top: 0;
+    width: 500px;
+    background-color: #fff;
+    display: flex;
+}
+
+.btn {
+    margin: 3px;
+    padding: 3px 7px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+#itemsLeft {
+    margin: 3px;
+    padding: 3px 7px;
+}
+
+#btn-all {
+    margin-left: 50px;
+}
+
+#clear-complete {
+    visibility: hidden;
 }

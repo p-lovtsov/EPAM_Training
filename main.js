@@ -93,6 +93,7 @@ function drawTask (tid, ttext, tcomplete) {
         visibilityOfClearComplete();
         amountOfTask();
         allChecked();
+        displayOrNotDisplay();
     })
 }
 
@@ -153,6 +154,7 @@ allComplete.addEventListener('change', function () {
         document.getElementById(el.id).children[0].checked = status;
     });
     amountOfTask();
+    displayOrNotDisplay();
     if (status) {
         clearComplete.style.visibility = 'visible';
     } else {
@@ -174,6 +176,7 @@ clearComplete.addEventListener('click', function () {
     visibilityOfClearComplete();
     amountOfTask();
     allChecked();
+    displayOrNotDisplay();
 })
 
 btnAll.classList.add('btnActive');
@@ -183,42 +186,17 @@ btnAll.addEventListener('click', function () {
         btnAll.classList.add('btnActive');
         btnActive.classList.remove('btnActive');
         btnComplete.classList.remove('btnActive');
-        var indexes = [];
-        todo.forEach(function (el) {
-                indexes.push(el.id);
-        });
-        var lenIndexes = indexes.length;
-        for (var i=0; i<lenIndexes; i++) {
-            var task = document.getElementById(indexes[i]);
-            task.style.display = 'flex';
+        displayOrNotDisplay();
         }
     }
-});
+);
 
 btnActive.addEventListener('click', function () {
     if (!btnActive.classList.contains('btnActive')) {
         btnAll.classList.remove('btnActive');
         btnActive.classList.add('btnActive');
         btnComplete.classList.remove('btnActive');
-        var indexesNotDisplay = [];
-        var indexesDisplay = [];
-        todo.forEach(function (el) {
-            if (el.complete === true) {
-                indexesNotDisplay.push(el.id);
-            } else {
-                indexesDisplay.push(el.id);
-            }
-        });
-        var lenIndexes = indexesNotDisplay.length;
-        for (var i=0; i<lenIndexes; i++) {
-            var task = document.getElementById(indexesNotDisplay[i]);
-            task.style.display = 'none';
-        }
-        lenIndexes = indexesDisplay.length;
-        for (var i=0; i<lenIndexes; i++) {
-            var task = document.getElementById(indexesDisplay[i]);
-            task.style.display = 'flex';
-        }
+        displayOrNotDisplay()
     }
 });
 
@@ -227,8 +205,26 @@ btnComplete.addEventListener('click', function () {
         btnAll.classList.remove('btnActive');
         btnActive.classList.remove('btnActive');
         btnComplete.classList.add('btnActive');
-        var indexesNotDisplay = [];
-        var indexesDisplay = [];
+        displayOrNotDisplay();
+    }
+});
+
+function displayOrNotDisplay () {
+    var indexesNotDisplay = [];
+    var indexesDisplay = [];
+    if (btnAll.classList.contains('btnActive')) {
+        todo.forEach(function (el) {
+            indexesDisplay.push(el.id);
+        }); 
+    } else if (btnActive.classList.contains('btnActive')) {
+        todo.forEach(function (el) {
+            if (el.complete === true) {
+                indexesNotDisplay.push(el.id);
+            } else {
+                indexesDisplay.push(el.id);
+            }
+        });
+    } else {
         todo.forEach(function (el) {
             if (el.complete === false) {
                 indexesNotDisplay.push(el.id);
@@ -236,15 +232,15 @@ btnComplete.addEventListener('click', function () {
                 indexesDisplay.push(el.id);
             }
         });
-        var lenIndexes = indexesNotDisplay.length;
-        for (var i=0; i<lenIndexes; i++) {
-            var task = document.getElementById(indexesNotDisplay[i]);
-            task.style.display = 'none';
-        }
-        lenIndexes = indexesDisplay.length;
-        for (var i=0; i<lenIndexes; i++) {
-            var task = document.getElementById(indexesDisplay[i]);
-            task.style.display = 'flex';
-        }
     }
-});
+    var lenIndexes = indexesNotDisplay.length;
+    for (var i=0; i<lenIndexes; i++) {
+        var task = document.getElementById(indexesNotDisplay[i]);
+        task.style.display = 'none';
+    }
+    lenIndexes = indexesDisplay.length;
+    for (var i=0; i<lenIndexes; i++) {
+        var task = document.getElementById(indexesDisplay[i]);
+        task.style.display = 'flex';
+    }
+}

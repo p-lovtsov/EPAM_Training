@@ -196,7 +196,7 @@ btnActive.addEventListener('click', function () {
         btnAll.classList.remove('btnActive');
         btnActive.classList.add('btnActive');
         btnComplete.classList.remove('btnActive');
-        displayOrNotDisplay()
+        displayOrNotDisplay();
     }
 });
 

@@ -98,6 +98,10 @@ footer {
     border-radius: 3px;
 }
 
+.btn:hover {
+    border-color: #ffa07a73;
+}
+
 #itemsLeft {
     margin: 3px;
     padding: 3px 7px;
@@ -105,6 +109,10 @@ footer {
 
 #btnAll {
     margin-left: 60px;
+}
+
+.btnActive {
+    border-color: #ff450078;
 }
 
 #clearComplete {

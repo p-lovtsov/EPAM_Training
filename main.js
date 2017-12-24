@@ -50,6 +50,7 @@ function drawTask (tid, ttext, tcomplete) {
     todo.push(task);
     var foot = document.querySelector('footer');
     foot.style.visibility = 'visible';
+    foot.id = 'foot';
     allComplete.style.visibility = 'visible';
     var item = document.createElement('div');
     var text = document.createElement('p');
@@ -73,20 +74,8 @@ function drawTask (tid, ttext, tcomplete) {
     allChecked();
     itemCheck.checked = task.complete;
     close.addEventListener('click', function () {
-        var len = todo.length;
         var id = this.parentElement.id;
-        localStorage.removeItem(id);
-        for (var i=0; i<len; i++) {
-            var arrid = todo[i];
-            if (arrid.id === id) {
-                todo.splice(i,1);
-            }
-            len = todo.length;
-            if (!len) {
-                foot.style.visibility = 'hidden';
-            }
-        }
-        this.parentElement.remove();
+        deleteTask(id);
         visibilityOfClearComplete();
         amountOfTask();
         allChecked();
@@ -107,6 +96,21 @@ function drawTask (tid, ttext, tcomplete) {
     })
 }
 
+function deleteTask (id) {
+    localStorage.removeItem(id);
+    document.getElementById(id).remove();
+    var len = todo.length;
+    for(var i=0; i<len; i++) {
+        if (todo[i].id === id) {
+            todo.splice(i,1);
+        }
+        len = todo.length;
+        if (!len) {
+            foot.style.visibility = 'hidden';
+        }
+    }
+}
+
 function visibilityOfClearComplete () {
     var s = todo.some(function (el) {
         return el.complete;
@@ -119,13 +123,18 @@ function visibilityOfClearComplete () {
 }
 
 function allChecked () {
-    var s = todo.every(function (el) {
-        return el.complete;
-    });
-    if (s) {
-        allComplete.checked = true;
+    if (todo.length !== 0) {
+        var s = todo.every(function (el) {
+            return el.complete;
+        });
+        if (s) {
+            allComplete.checked = true;
+        } else {
+            allComplete.checked = false;
+        }
     } else {
         allComplete.checked = false;
+        allComplete.style.visibility = 'hidden';
     }
 }
 
@@ -150,3 +159,92 @@ allComplete.addEventListener('change', function () {
         clearComplete.style.visibility = 'hidden';
     }
 }, true);
+
+clearComplete.addEventListener('click', function () {
+    var indexes = [];
+    todo.forEach(function (el) {
+        if (el.complete) {
+            indexes.push(el.id);
+        }
+    });
+    var lenIndexes = indexes.length;
+    for (var i=0; i<lenIndexes; i++) {
+        deleteTask(indexes[i]);
+    }
+    visibilityOfClearComplete();
+    amountOfTask();
+    allChecked();
+})
+
+btnAll.classList.add('btnActive');
+
+btnAll.addEventListener('click', function () {
+    if (!btnAll.classList.contains('btnActive')) {
+        btnAll.classList.add('btnActive');
+        btnActive.classList.remove('btnActive');
+        btnComplete.classList.remove('btnActive');
+        var indexes = [];
+        todo.forEach(function (el) {
+                indexes.push(el.id);
+        });
+        var lenIndexes = indexes.length;
+        for (var i=0; i<lenIndexes; i++) {
+            var task = document.getElementById(indexes[i]);
+            task.style.display = 'flex';
+        }
+    }
+});
+
+btnActive.addEventListener('click', function () {
+    if (!btnActive.classList.contains('btnActive')) {
+        btnAll.classList.remove('btnActive');
+        btnActive.classList.add('btnActive');
+        btnComplete.classList.remove('btnActive');
+        var indexesNotDisplay = [];
+        var indexesDisplay = [];
+        todo.forEach(function (el) {
+            if (el.complete === true) {
+                indexesNotDisplay.push(el.id);
+            } else {
+                indexesDisplay.push(el.id);
+            }
+        });
+        var lenIndexes = indexesNotDisplay.length;
+        for (var i=0; i<lenIndexes; i++) {
+            var task = document.getElementById(indexesNotDisplay[i]);
+            task.style.display = 'none';
+        }
+        lenIndexes = indexesDisplay.length;
+        for (var i=0; i<lenIndexes; i++) {
+            var task = document.getElementById(indexesDisplay[i]);
+            task.style.display = 'flex';
+        }
+    }
+});
+
+btnComplete.addEventListener('click', function () {
+    if (!btnComplete.classList.contains('btnActive')) {
+        btnAll.classList.remove('btnActive');
+        btnActive.classList.remove('btnActive');
+        btnComplete.classList.add('btnActive');
+        var indexesNotDisplay = [];
+        var indexesDisplay = [];
+        todo.forEach(function (el) {
+            if (el.complete === false) {
+                indexesNotDisplay.push(el.id);
+            } else {
+                indexesDisplay.push(el.id);
+            }
+        });
+        var lenIndexes = indexesNotDisplay.length;
+        for (var i=0; i<lenIndexes; i++) {
+            var task = document.getElementById(indexesNotDisplay[i]);
+            task.style.display = 'none';
+        }
+        lenIndexes = indexesDisplay.length;
+        for (var i=0; i<lenIndexes; i++) {
+            var task = document.getElementById(indexesDisplay[i]);
+            task.style.display = 'flex';
+        }
+    }
+});

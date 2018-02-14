@@ -1,128 +1,69 @@
 * {
-    margin: 0;
-    padding: 0;
-}
-
-.text {
-    margin: 5px;
-    width: 415px;
-    overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    height: 90%;
-    width: 90%;
-    background-color: #f5f5f5;
+  background-color: #0079bf;
 }
 
-h1 {
-    font-size: 70px;
-    font-weight: 100;
-    text-align: center;
-    color: #334d5c;
-    margin: 0;
+header h2 {
+  color: white;
 }
 
-#inp {
-    height: 30px;
-    width: 88%;
-    margin: 7px;
-    font-size: 22px;
-    color: #333;
-    border: 0;
-    padding-left: 4px;
+.modal {
+  position: absolute;
+  border: 1px solid grey;
+  border-radius: 3px;
+  background-color: white;
+}
+.modal h4 {
+  color: grey;
+  text-align: center;
+  margin: 10px;
+  position: relative;
+  font-weight: 400;
+}
+.modal label {
+  margin-left: 5px;
+  display: block;
+  font-weight: 700;
+}
+.modal input {
+  margin: 5px;
+  background-color: lightgray;
+  width: 200px;
+  font-size: 20px;
+  padding-left: 3px;
+}
+.modal hr {
+  color: grey;
+  margin: 5px;
+}
+.modal .modal-btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal .modal-btn-close svg {
+  width: 10px;
+  fill: grey;
+}
+.modal .modal-btn-close svg:hover {
+  fill: #353535;
+}
+.modal #btnRenameBoard {
+  width: 70px;
+  background-color: #519839;
+  text-align: center;
+  color: white;
+  margin: 5px;
+  padding: 5px;
+  font-weight: 700;
+  border-radius: 2px;
+}
+.modal #btnRenameBoard:hover {
+  background-color: #49852e;
 }
 
-#inp:focus {
-    border: 0;
-}
-
-input[type='checkbox'] {
-    width: 25px;
-    height: 25px;
-    margin: 7px;
-    margin-left: 10px;
-}
-
-input[type='checkbox']:checked+p {
-    color: grey;
-    text-decoration: line-through;
-}
-
-.task {
-    color: #333;
-    font-size: 22px;
-    display: flex;
-}
-
-.task:hover>.close-btn {
-    visibility: visible;
-}
-
-#allComplete {
-    visibility: hidden;
-    float: left;
-    margin-top: 12px;
-}
-
-.close-btn {
-    width: 20px;
-    height: 20px;
-    background-image: url(close.svg);
-    margin-top: 5px;
-    visibility: hidden;
-}
-
-section {
-    margin: 0 auto;
-    border: 1px solid grey;
-    width: 500px;
-    background-color: #fff;
-}
-
-footer {
-    visibility: hidden;
-    margin: 0 auto 25px;
-    border: 1px solid grey;
-    border-top: 0;
-    width: 500px;
-    background-color: #fff;
-    display: flex;
-}
-
-.btn {
-    margin: 3px;
-    padding: 3px 7px;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 3px;
-}
-
-.btn:hover {
-    border-color: #ffa07a73;
-}
-
-#itemsLeft {
-    margin: 3px;
-    padding: 3px 7px;
-}
-
-#btnAll {
-    margin-left: 60px;
-}
-
-.btnActive {
-    border-color: #ff450078;
-}
-
-#clearComplete {
-    visibility: hidden;
-    margin: 3px;
-    padding: 3px 7px;
-    margin-left: 43px;
-}
-
-#clearComplete:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
+/*# sourceMappingURL=style.css.map */

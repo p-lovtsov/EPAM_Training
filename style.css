@@ -6,64 +6,137 @@
 body {
   background-color: #0079bf;
 }
-
-header h2 {
+body .btn {
+  width: 100px;
+  background-color: #519839;
+  text-align: center;
   color: white;
+  margin: 5px;
+  margin-top: 10px;
+  padding: 5px;
+  font-weight: 700;
+  border-radius: 2px;
+}
+body .btn:hover {
+  background-color: #49852e;
 }
 
-.modal {
+.hide {
+  display: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+header h2 {
+  margin-left: 10px;
+  position: relative;
+}
+header .modal {
+  font-size: 18px;
   position: absolute;
+  top: 30px;
+  left: 7px;
   border: 1px solid grey;
   border-radius: 3px;
   background-color: white;
+  z-index: 2;
 }
-.modal h4 {
+header .modal h4 {
   color: grey;
   text-align: center;
   margin: 10px;
   position: relative;
   font-weight: 400;
 }
-.modal label {
-  margin-left: 5px;
-  display: block;
-  font-weight: 700;
-}
-.modal input {
-  margin: 5px;
-  background-color: lightgray;
-  width: 200px;
-  font-size: 20px;
-  padding-left: 3px;
-}
-.modal hr {
-  color: grey;
-  margin: 5px;
-}
-.modal .modal-btn-close {
+header .modal h4 .modal-btn-close {
   position: absolute;
   top: 0;
   right: 0;
 }
-.modal .modal-btn-close svg {
+header .modal h4 .modal-btn-close svg {
   width: 10px;
   fill: grey;
 }
-.modal .modal-btn-close svg:hover {
+header .modal h4 .modal-btn-close svg:hover {
   fill: #353535;
 }
-.modal #btnRenameBoard {
-  width: 70px;
-  background-color: #519839;
-  text-align: center;
-  color: white;
-  margin: 5px;
-  padding: 5px;
+header .modal label {
+  color: black;
+  margin-left: 5px;
+  display: block;
   font-weight: 700;
-  border-radius: 2px;
 }
-.modal #btnRenameBoard:hover {
-  background-color: #49852e;
+header .modal input {
+  margin: 5px;
+  background-color: lightgray;
+  width: 300px;
+  font-size: 16px;
+  padding-left: 3px;
+}
+header .modal input:focus {
+  background-color: white;
+}
+header .modal hr {
+  color: grey;
+  margin: 5px;
+}
+header #boardMenu {
+  width: 100px;
+}
+
+main .wrap {
+  width: 100%;
+}
+main .wrap .list {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 7px;
+  width: 270px;
+  background: #e2e4e6;
+  border-radius: 3px;
+  min-height: 100px;
+}
+main .wrap .list #listName {
+  margin-top: 5px;
+}
+main .wrap .addList {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 7px;
+  width: 270px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  min-height: 30px;
+  vertical-align: top;
+}
+main .wrap .addList form input {
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  color: white;
+  background-color: transparent;
+  padding: 7px;
+}
+main .wrap .addList form input::placeholder {
+  color: lightgray;
+}
+main .wrap .addList form .addList-footer {
+  position: relative;
+}
+main .wrap .addList form .close-btn {
+  width: 20px;
+  position: absolute;
+  left: 130px;
+  top: 3px;
+}
+main .wrap .addList form .close-btn svg {
+  fill: grey;
+}
+main .wrap .addList form .close-btn svg:hover {
+  fill: #353535;
 }
 
 /*# sourceMappingURL=style.css.map */

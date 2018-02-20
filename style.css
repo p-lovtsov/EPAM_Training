@@ -98,9 +98,19 @@ main .wrap .list {
   background: #e2e4e6;
   border-radius: 3px;
   min-height: 100px;
+  vertical-align: top;
 }
-main .wrap .list #listName {
-  margin-top: 5px;
+main .wrap .list .list-header {
+  position: relative;
+}
+main .wrap .list .list-header .listName {
+  margin: 5px;
+  overflow: hidden;
+}
+main .wrap .list .list-header .list-menu {
+  position: absolute;
+  top: 0;
+  right: 5px;
 }
 main .wrap .addList {
   display: inline-block;

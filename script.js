@@ -3,8 +3,12 @@ var actions = [];
 var board;
 var elemBoardName = document.querySelector('#boardName');
 var elemRenameBoard = document.querySelector('#renameBoard');
+var addListForm = document.querySelector('.addList');
 var addListInput = document.querySelector('#addList-input');
 var addListSave = document.querySelector('#addList-save');
+var addListCloseBtn = document.querySelector('.close-btn');
+var page = document.querySelector('.container');
+var lists = document.querySelector('.wrap');
 
 window.onload = init();
 
@@ -34,7 +38,7 @@ elemBoardName.addEventListener('click', function() {
     };
     closeBtn.addEventListener('click', function() {
         modal.classList.add('hide');
-    })
+    });
     renameBtn.addEventListener('click', function () {
         let name = inputBoardName.value;
         if (name !== '') {
@@ -46,14 +50,51 @@ elemBoardName.addEventListener('click', function() {
     });
 });
 
-addListInput.addEventListener('focus', function (event) {
-    event.target.nextSibling.nextSibling.classList.remove('hide');
-});
+addListInput.addEventListener('focus', addListInputFocus);
 
-addListInput.addEventListener('blur', function (event) {
-    console.log(event.target);
-});
+function addListInputFocus (event) {
+    event.target.nextSibling.nextSibling.classList.remove('hide');
+}
 
 addListSave.addEventListener('click', function (event) {
-    console.log(3);
+    if(addListInput.value !== '') {
+        var divList = document.createElement('div');
+        var divListHeader = document.createElement('div');
+        var h4 = document.createElement('h4');
+        divList.className = 'list';
+        divListHeader.className = 'list-header';
+
+        h4.className = 'listName';
+        h4.innerText = addListInput.value + ' ' + uuid();
+        divListHeader.appendChild(h4);
+        divList.appendChild(divListHeader);
+        lists.insertBefore(divList,addListForm);
+        addListInput.value = '';
+    }
+    console.log('save', event.target.parentNode.parentNode);
+
+});
+
+addListCloseBtn.addEventListener('click', function (event) {
+    addListInput.value = '';
+    event.currentTarget.parentNode.classList.add('hide');
 })
+
+
+function uuid() {
+    var uuid = "", rand = Math.random, i, v;
+    for (i = 0; i < 7; i++) {
+        v = rand() * 16 | 0;
+        uuid += (i === 16 ? (v & 3 | 8) : v).toString(16);
+    }
+    return uuid;
+}
+
+addListInput.addEventListener('blur', function (event) {
+    console.log('blur', event.currentTarget, event.target);
+    event.currentTarget.classList.add('hide');
+});
+
+// addListForm.addEventListener('click', function(event) {
+//     console.log(event.currentTarget);
+// });

@@ -87,10 +87,10 @@ header #boardMenu {
   width: 100px;
 }
 
-main .wrap {
+main .lists {
   width: 100%;
 }
-main .wrap .list {
+main .lists .list {
   display: inline-block;
   box-sizing: border-box;
   margin: 7px;
@@ -100,19 +100,36 @@ main .wrap .list {
   min-height: 100px;
   vertical-align: top;
 }
-main .wrap .list .list-header {
+main .lists .list .list-header {
+  position: relative;
+  margin: 10px 5px;
+}
+main .lists .list .list-header .listName {
+  overflow: hidden;
   position: relative;
 }
-main .wrap .list .list-header .listName {
-  margin: 5px;
-  overflow: hidden;
+main .lists .list .list-header .listName .renameList {
+  position: absolute;
+  left: 0;
 }
-main .wrap .list .list-header .list-menu {
+main .lists .list .list-header .list-menu {
   position: absolute;
   top: 0;
   right: 5px;
 }
-main .wrap .addList {
+main .lists .list .list-header .list-menu:hover {
+  text-decoration: underline;
+}
+main .lists .list .cards {
+  margin: 10px 5px;
+}
+main .lists .list .cards .card {
+  overflow: hidden;
+}
+main .lists .list .list-footer {
+  margin: 10px 5px;
+}
+main .lists .addList {
   display: inline-block;
   box-sizing: border-box;
   margin: 7px;
@@ -122,7 +139,7 @@ main .wrap .addList {
   min-height: 30px;
   vertical-align: top;
 }
-main .wrap .addList form input {
+main .lists .addList form input {
   box-sizing: border-box;
   width: 100%;
   border: none;
@@ -130,22 +147,22 @@ main .wrap .addList form input {
   background-color: transparent;
   padding: 7px;
 }
-main .wrap .addList form input::placeholder {
+main .lists .addList form input::placeholder {
   color: lightgray;
 }
-main .wrap .addList form .addList-footer {
+main .lists .addList form .addList-footer {
   position: relative;
 }
-main .wrap .addList form .close-btn {
+main .lists .addList form .close-btn {
   width: 20px;
   position: absolute;
   left: 130px;
   top: 3px;
 }
-main .wrap .addList form .close-btn svg {
+main .lists .addList form .close-btn svg {
   fill: grey;
 }
-main .wrap .addList form .close-btn svg:hover {
+main .lists .addList form .close-btn svg:hover {
   fill: #353535;
 }
 

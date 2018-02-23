@@ -104,7 +104,7 @@ header {
 }
 
 main {
-    .wrap {
+    .lists {
         width: 100%;
 
         .list {
@@ -119,17 +119,37 @@ main {
 
             .list-header {
                 position: relative;
+                margin: 10px 5px;
 
                 .listName {
-                    margin: 5px;
                     overflow: hidden;
+                    position: relative;
+                    .renameList {
+                        position: absolute;
+                        left: 0;
+                    }
                 }
 
                 .list-menu {
                     position: absolute;
                     top: 0;
                     right: 5px;
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
+            }
+
+            .cards {
+                margin: 10px 5px;
+
+                .card {
+                    overflow: hidden;
+                }
+            }
+
+            .list-footer {
+                margin: 10px 5px;
             }
         }
 

@@ -19,6 +19,65 @@ body .btn {
 }
 body .btn:hover {
   background-color: #49852e;
+  cursor: pointer;
+}
+body .close-btn {
+  width: 18px;
+  position: absolute;
+  left: 130px;
+  top: 3px;
+}
+body .close-btn:hover {
+  cursor: pointer;
+}
+body .close-btn svg {
+  fill: grey;
+}
+body .close-btn svg:hover {
+  fill: #353535;
+  cursor: pointer;
+}
+body .modal-btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+body .modal-btn-close svg {
+  width: 10px;
+  fill: grey;
+}
+body .modal-btn-close svg:hover {
+  fill: #353535;
+}
+body .close {
+  background-image: url(images/close.svg);
+  height: 18px;
+}
+body .modalListMenu {
+  width: 150px;
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+}
+body .modalListMenu h4 {
+  padding: 7px;
+  position: relative;
+}
+body .modalListMenu h4 .modal-btn-close {
+  margin: 7px;
+}
+body .modalListMenu hr {
+  margin: 5px;
+}
+body .modalListMenu .action {
+  padding: 7px;
+  text-align: left;
+}
+body .modalListMenu .action:hover {
+  background-color: #298fca;
+  cursor: pointer;
 }
 
 .hide {
@@ -51,18 +110,6 @@ header .modal h4 {
   position: relative;
   font-weight: 400;
 }
-header .modal h4 .modal-btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-header .modal h4 .modal-btn-close svg {
-  width: 10px;
-  fill: grey;
-}
-header .modal h4 .modal-btn-close svg:hover {
-  fill: #353535;
-}
 header .modal label {
   color: black;
   margin-left: 5px;
@@ -86,6 +133,10 @@ header .modal hr {
 header #boardMenu {
   width: 100px;
 }
+header #boardMenu:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 main .lists {
   width: 100%;
@@ -97,7 +148,7 @@ main .lists .list {
   width: 270px;
   background: #e2e4e6;
   border-radius: 3px;
-  min-height: 100px;
+  min-height: 50px;
   vertical-align: top;
 }
 main .lists .list .list-header {
@@ -106,28 +157,65 @@ main .lists .list .list-header {
 }
 main .lists .list .list-header .listName {
   overflow: hidden;
-  position: relative;
-}
-main .lists .list .list-header .listName .renameList {
-  position: absolute;
-  left: 0;
+  padding-left: 10px;
+  cursor: pointer;
 }
 main .lists .list .list-header .list-menu {
   position: absolute;
   top: 0;
   right: 5px;
+  padding: 3px;
+  border-radius: 3px;
+  width: 15px;
+  text-align: center;
 }
 main .lists .list .list-header .list-menu:hover {
   text-decoration: underline;
+  background-color: lightgray;
+  cursor: pointer;
+}
+main .lists .list .list-header .listRenameField {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 230px;
 }
 main .lists .list .cards {
-  margin: 10px 5px;
+  margin: 5px 5px;
 }
 main .lists .list .cards .card {
   overflow: hidden;
+  background-color: white;
+  width: 240px;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 3px;
 }
-main .lists .list .list-footer {
-  margin: 10px 5px;
+main .lists .list .cards .card:hover {
+  background-color: lightgrey;
+}
+main .lists .list .list-footer .addCardForm {
+  margin: 5px;
+  position: relative;
+}
+main .lists .list .list-footer .addCardForm textarea {
+  margin-left: 5px;
+  border-radius: 3px;
+  border-color: white;
+}
+main .lists .list .list-footer .addCardForm .close-btn {
+  top: 96px;
+}
+main .lists .list .list-footer .addCard {
+  padding: 5px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+main .lists .list .list-footer .addCard:hover {
+  text-decoration: underline;
+  background-color: lightgrey;
+  cursor: pointer;
 }
 main .lists .addList {
   display: inline-block;
@@ -139,7 +227,7 @@ main .lists .addList {
   min-height: 30px;
   vertical-align: top;
 }
-main .lists .addList form input {
+main .lists .addList input {
   box-sizing: border-box;
   width: 100%;
   border: none;
@@ -147,23 +235,11 @@ main .lists .addList form input {
   background-color: transparent;
   padding: 7px;
 }
-main .lists .addList form input::placeholder {
+main .lists .addList input::placeholder {
   color: lightgray;
 }
-main .lists .addList form .addList-footer {
+main .lists .addList .addList-footer {
   position: relative;
-}
-main .lists .addList form .close-btn {
-  width: 20px;
-  position: absolute;
-  left: 130px;
-  top: 3px;
-}
-main .lists .addList form .close-btn svg {
-  fill: grey;
-}
-main .lists .addList form .close-btn svg:hover {
-  fill: #353535;
 }
 
 /*# sourceMappingURL=style.css.map */

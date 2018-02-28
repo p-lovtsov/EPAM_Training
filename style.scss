@@ -19,6 +19,75 @@ body {
 
         &:hover {
             background-color: #49852e;
+            cursor: pointer;
+        }
+    }
+
+    .close-btn {
+        width: 18px;
+        position: absolute;
+        left: 130px;
+        top: 3px;
+        &:hover {
+            cursor: pointer;
+        }
+
+        svg {
+            fill: grey;
+
+            &:hover {
+                fill: rgb(53, 53, 53);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .modal-btn-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        svg {
+            width: 10px;
+            fill: grey;
+
+            &:hover {
+                fill: rgb(53, 53, 53);
+            }
+        }
+    }
+
+    .close {
+        background-image: url(images/close.svg);
+        height: 18px;
+    }
+
+    .modalListMenu {
+        width: 150px;
+        position: absolute;
+        z-index: 5;
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 0 1px 6px rgba(0,0,0,.15);
+        
+        h4 {
+            padding: 7px;
+            position: relative;
+            .modal-btn-close {
+                margin: 7px;
+            }
+        }
+
+        hr {
+            margin: 5px;
+        }
+        .action {
+            padding: 7px;
+            text-align: left;
+            &:hover {
+                background-color: #298fca;
+                cursor: pointer;
+            }
         }
     }
     
@@ -57,21 +126,6 @@ header {
             margin: 10px;
             position: relative;
             font-weight: 400;
-
-            .modal-btn-close {
-                position: absolute;
-                top: 0;
-                right: 0;
-
-                svg {
-                    width: 10px;
-                    fill: grey;
-
-                    &:hover {
-                        fill: rgb(53, 53, 53);
-                    }
-                }
-            }
         }
 
         label {
@@ -100,6 +154,11 @@ header {
 
     #boardMenu {
         width: 100px;
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
     }
 }
 
@@ -114,7 +173,7 @@ main {
             width: 270px;
             background: #e2e4e6;
             border-radius: 3px;
-            min-height: 100px;
+            min-height: 50px;
             vertical-align: top;
 
             .list-header {
@@ -123,33 +182,79 @@ main {
 
                 .listName {
                     overflow: hidden;
-                    position: relative;
-                    .renameList {
-                        position: absolute;
-                        left: 0;
-                    }
+                    padding-left: 10px;
+                    cursor: pointer;
                 }
 
                 .list-menu {
                     position: absolute;
                     top: 0;
                     right: 5px;
+                    padding: 3px;
+                    border-radius: 3px;
+                    width: 15px;
+                    text-align: center;
                     &:hover {
                         text-decoration: underline;
+                        background-color: lightgray;
+                        cursor: pointer;
                     }
+
+                    
+                }
+
+                .listRenameField {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 230px;
                 }
             }
 
             .cards {
-                margin: 10px 5px;
+                margin: 5px 5px;
 
                 .card {
                     overflow: hidden;
+                    background-color: white;
+                    width: 240px;
+                    margin: 5px;
+                    padding: 5px;
+                    border-radius: 3px;
+                    &:hover {
+                        background-color: lightgrey;
+                    }
                 }
             }
 
             .list-footer {
-                margin: 10px 5px;
+
+                .addCardForm {
+                    margin: 5px;
+                    position: relative;
+
+                    textarea {
+                        margin-left: 5px;
+                        border-radius: 3px;
+                        border-color: white;
+                    }
+
+                    .close-btn {
+                        top: 96px;
+                    }
+                }
+
+                .addCard {
+                    padding: 5px;
+                    padding-left: 15px;
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    &:hover {
+                        text-decoration: underline;
+                        background-color: lightgrey;
+                        cursor: pointer;
+                    }
+                }
             }
         }
 
@@ -163,41 +268,23 @@ main {
             min-height: 30px;
             vertical-align: top;
             
-
-            form {
-                input {
-                    box-sizing: border-box;
-                    width: 100%;
-                    border: none;
-                    color: white;
-                    background-color: transparent;
-                    padding: 7px;
-                    &::placeholder {
-                        color: lightgray;
-                    }
-                }
-
-                .addList-footer {
-                    position: relative;
-                    
-                }
-
-                .close-btn {
-                    width: 20px;
-                    position: absolute;
-                    left: 130px;
-                    top: 3px;
-
-                    svg {
-                        fill: grey;
-    
-                        &:hover {
-                            fill: rgb(53, 53, 53);
-                        }
-                    }
+            input {
+                box-sizing: border-box;
+                width: 100%;
+                border: none;
+                color: white;
+                background-color: transparent;
+                padding: 7px;
+                &::placeholder {
+                    color: lightgray;
                 }
             }
-            
+
+            .addList-footer {
+                position: relative;
+                
+                
+            }
         }
     }
 }

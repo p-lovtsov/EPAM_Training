@@ -26,8 +26,7 @@
                 <div class="btn" id="btnRenameBoard">Rename</div>
             </div>
             <div id="boardMenu">
-                <span>...</span>
-                <span>ShowMenu</span>
+                <span>... ShowMenu</span>
             </div>
         </header>
         <main>
@@ -35,32 +34,51 @@
                 <div class="list">
                     <div class="list-header">
                         <h4 class="listName">Backlog</h4>
-                        <div class="list-menu">...</div>
+                        <input type="text" class="listRenameField hide">
+                        <div class="list-menu">
+                            <span>...</span>
+                            <div class="modalListMenu">
+                                <h4>Action List
+                                    <div class="modal-btn-close">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                                            <g><g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"><path d="M630.2,4489.8L100,3957.7l1917.9-1917.9L3937.7,120L2017.9-1799.8L100-3717.7l530.2-532.1l532.1-530.2l1917.9,1917.9L5000-942.3l1919.8-1919.8L8837.7-4780l532.1,530.2l530.2,532.1L7982.1-1799.8L6062.3,120l1919.8,1919.8L9900,3957.7l-530.2,532.1L8837.7,5020L6919.8,3102.1L5000,1182.3L3080.2,3102.1L1162.3,5020L630.2,4489.8z"/></g></g>
+                                        </svg>
+                                    </div>
+                                </h4>
+                                <hr>
+                                <div class="action copyList">Copy List...</div>
+                                <div class="action moveList">Move List...</div>
+                                <div class="action deleteList">Delete This List</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="cards">
-                        <div class="card">
-                            <span>Task1</span>
-                        </div>
-                        <div class="card">
-                            <span>Task2</span>
-                        </div>
+                        <div class="card">Task1</div>
+                        <div class="card">Task2</div>
                     </div>
                     <div class="list-footer">
-                        <div id="addTask">Add a task ...</div>
-                    </div>
-                </div>
-                <div class="addList">
-                    <form>
-                        <input type="text" id="addList-input" placeholder="Add a list ...">
-                        <div class="addList-footer hide">
-                            <div class="btn" id="addList-save">Save</div>
+                        <div class="addCardForm">
+                            <textarea name="newTask" id="newTask" cols="33" rows="5"></textarea>
+                            <div class="btn">Add</div>
                             <div class="close-btn">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                                     <g><g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"><path d="M630.2,4489.8L100,3957.7l1917.9-1917.9L3937.7,120L2017.9-1799.8L100-3717.7l530.2-532.1l532.1-530.2l1917.9,1917.9L5000-942.3l1919.8-1919.8L8837.7-4780l532.1,530.2l530.2,532.1L7982.1-1799.8L6062.3,120l1919.8,1919.8L9900,3957.7l-530.2,532.1L8837.7,5020L6919.8,3102.1L5000,1182.3L3080.2,3102.1L1162.3,5020L630.2,4489.8z"/></g></g>
                                 </svg>
                             </div>
                         </div>
-                    </form>
+                        <div class="addCard">Add a card ...</div>
+                    </div>
+                </div>
+                <div class="addList">
+                    <input type="text" id="addList-input" placeholder="Add a list ...">
+                    <div class="addList-footer hide">
+                        <div class="btn" id="addList-save">Save</div>
+                        <div class="close-btn">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                                <g><g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"><path d="M630.2,4489.8L100,3957.7l1917.9-1917.9L3937.7,120L2017.9-1799.8L100-3717.7l530.2-532.1l532.1-530.2l1917.9,1917.9L5000-942.3l1919.8-1919.8L8837.7-4780l532.1,530.2l530.2,532.1L7982.1-1799.8L6062.3,120l1919.8,1919.8L9900,3957.7l-530.2,532.1L8837.7,5020L6919.8,3102.1L5000,1182.3L3080.2,3102.1L1162.3,5020L630.2,4489.8z"/></g></g>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

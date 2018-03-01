@@ -176,9 +176,9 @@ main .lists .list .list-header .list-menu:hover {
 }
 main .lists .list .list-header .listRenameField {
   position: absolute;
-  left: 0;
+  left: 5px;
   top: 0;
-  width: 230px;
+  width: 225px;
 }
 main .lists .list .cards {
   margin: 5px 5px;
@@ -193,6 +193,8 @@ main .lists .list .cards .card {
 }
 main .lists .list .cards .card:hover {
   background-color: lightgrey;
+  background-image: url(images/edit.svg);
+  cursor: pointer;
 }
 main .lists .list .list-footer .addCardForm {
   margin: 5px;

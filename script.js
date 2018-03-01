@@ -14,6 +14,8 @@ var lists = document.querySelector('.lists');
 
 window.onload = init();
 
+/* проверка есть ли данные прошлого использования и если нет то 
+заводятся 3 листа и имя доски */
 function init () {
     if (localStorage.length === 0) {
         board = {
@@ -28,7 +30,7 @@ function init () {
     elemBoardName.innerText = brdName;
 }
 
-//
+//контроллер переименования доски
 elemBoardName.addEventListener('click', function() {
     var modal = document.querySelector('.modal');
     var modalCloseBtn = document.querySelector('.modal-btn-close');
@@ -51,18 +53,20 @@ elemBoardName.addEventListener('click', function() {
     });
 });
 
-addListInput.addEventListener('focus', addListInputFocus);
-
-function addListInputFocus (event) {
+// контроллер появления кнопок при добавлении листа
+addListInput.addEventListener('focus', function (event) {
     event.target.nextSibling.nextSibling.classList.remove('hide');
-}
+    event.target.value = 'New list';
+});
 
+// контроллер добавления листа
 addListSave.addEventListener('click', function (event) {
     if(addListInput.value !== '') {
         newList();
     }
 });
 
+// новый лист
 function newList () {
     var divList = document.createElement('div');
     var divListHeader = document.createElement('div');
@@ -82,7 +86,7 @@ function newList () {
     addCardBtn.innerText = 'Add';
     newCardTextarea.setAttribute('cols', '33');
     newCardTextarea.setAttribute('rows', '5');
-    divNewCardForm.className = 'addCardForm';
+    divNewCardForm.className = 'addCardForm hide';
     divAddCard.className = 'addCard';
     divAddCard.innerText = 'Add a card ...';
     divListFooter.className = 'list-footer';
@@ -96,8 +100,9 @@ function newList () {
     divList.id = uuid();
     h4.innerHTML = addListInput.value;
     ArrayOfLists.push(divList.id);
+    //контроллер переименования листа
     h4.addEventListener('click', function (event) {
-        renameList (event);
+        renameList(event);
     });
     listMenu.appendChild(actionListForm);
     divNewCardForm.appendChild(newCardTextarea);
@@ -109,12 +114,29 @@ function newList () {
     divListHeader.appendChild(renameField);
     divListHeader.appendChild(listMenu);
     divList.appendChild(divListHeader);
+    divList.appendChild(cards);
     divList.appendChild(divListFooter);
     lists.insertBefore(divList,addListForm);
     addListInput.value = '';
     listMenu.addEventListener('click', function () {
         showHide(actionListForm);
-    }, true);
+    });
+    divAddCard.addEventListener('click', function () {
+        showHide(event.currentTarget);
+        showHide(divNewCardForm);
+    });
+    addCardCloseBtn.addEventListener('click', function () {
+        showHide(divNewCardForm);
+        showHide(divAddCard);
+    });
+    addCardBtn.addEventListener('click', function () {
+        console.log(newCardTextarea.value);
+        var divCard = document.createElement('div');
+        divCard.className = 'card';
+        divCard.innerText = newCardTextarea.value;
+        cards.appendChild(divCard);
+        newCardTextarea.value = '';
+    })
 }
 
 function actionList () {
@@ -142,19 +164,26 @@ function actionList () {
     actionListForm1.appendChild(actionListMoveList);
     actionListForm1.appendChild(actionListDeleteList);
     actionListForm1.addEventListener('click', function (event) {
+        var list = event.currentTarget.closest('.list');
+        var listId = list.id;
+        var parentList = document.querySelector('.lists');
         if (event.target === actionListCloseBtn) {
-            showHide(event.currentTarget);
+            console.log('щёлк');
+            // showHide(event.currentTarget);
         } else if (event.target === actionListCopyList) {
             console.log('Show Copy List Form');
+            
         } else if (event.target === actionListMoveList) {
             console.log('Show Move List Form');
         } else if (event.target === actionListDeleteList) {
             console.log('Delete List');
+            
+            console.log(parentList);
+            parentList.removeChild(list);
+            console.log('удалили лист с id ' + listId);
         }
-        event.stopPropagation();
-    }, true);
-    
-    console.log(this);
+        
+    });
     return actionListForm1;
 }
 
@@ -162,12 +191,16 @@ function showHide (el) {
     el.classList.toggle('hide');
 }
 
-function renameList (event) {
-    var inp = event.currentTarget.nextSibling;
+function renameList (event1) {
+    var inp = event1.currentTarget.nextSibling;
     showHide(inp);
-    inp.value = event.currentTarget.innerText;
+    inp.value = event1.currentTarget.innerText;
     inp.focus();
-    inp.addEventListener('keydown', function (event) {
+    inp.addEventListener('keydown', renameListControl(event));
+    // inp.removeEventListener('keydown', renameListControl(event));
+
+    function renameListControl (event) {
+        console.log(event, 11);
         if (event.keyCode === 13 && inp.value !== "") {
             var parent = event.currentTarget.parentNode;
             var child = event.currentTarget;
@@ -175,8 +208,10 @@ function renameList (event) {
             console.log(parent, currentListName);
             currentListName.innerText = inp.value;
             showHide(inp);
+            // inp.removeEventListener('keydown', renameListControl(event));
         }
-    });
+        console.log(121);
+    }
 }
 
 addListCloseBtn.addEventListener('click', function (event) {

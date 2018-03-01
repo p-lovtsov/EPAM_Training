@@ -205,9 +205,9 @@ main {
 
                 .listRenameField {
                     position: absolute;
-                    left: 0;
+                    left: 5px;
                     top: 0;
-                    width: 230px;
+                    width: 225px;
                 }
             }
 
@@ -223,6 +223,8 @@ main {
                     border-radius: 3px;
                     &:hover {
                         background-color: lightgrey;
+                        background-image: url(images/edit.svg);
+                        cursor: pointer;
                     }
                 }
             }

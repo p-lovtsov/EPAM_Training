@@ -67,7 +67,7 @@ addListSave.addEventListener('click', function (event) {
 });
 
 // новый лист
-function newList () {
+function newList (nameOfList) {
     var divList = document.createElement('div');
     var divListHeader = document.createElement('div');
     var h4 = document.createElement('h4');
@@ -98,7 +98,11 @@ function newList () {
     divListHeader.className = 'list-header';
     h4.className = 'listName';
     divList.id = uuid();
-    h4.innerHTML = addListInput.value;
+    if(nameOfList) {
+        h4.innerHTML = nameOfList;
+    } else {
+        h4.innerHTML = addListInput.value;
+    }
     ArrayOfLists.push(divList.id);
     //контроллер переименования листа
     h4.addEventListener('click', function (event) {
@@ -121,24 +125,30 @@ function newList () {
     listMenu.addEventListener('click', function () {
         showHide(actionListForm);
     });
+    // появление формы добавления карты
     divAddCard.addEventListener('click', function () {
         showHide(event.currentTarget);
         showHide(divNewCardForm);
     });
+    // закрытие формы добавления карты
     addCardCloseBtn.addEventListener('click', function () {
         showHide(divNewCardForm);
         showHide(divAddCard);
     });
+
+    // добавление новой карты
     addCardBtn.addEventListener('click', function () {
-        console.log(newCardTextarea.value);
-        var divCard = document.createElement('div');
-        divCard.className = 'card';
-        divCard.innerText = newCardTextarea.value;
-        cards.appendChild(divCard);
-        newCardTextarea.value = '';
-    })
+        if (newCardTextarea.value !== '') {
+            var divCard = document.createElement('div');
+            divCard.className = 'card';
+            divCard.innerText = newCardTextarea.value;
+            cards.appendChild(divCard);
+            newCardTextarea.value = '';
+        }
+    });
 }
 
+// добавление нового листа
 function actionList () {
     var actionListForm1 = document.createElement('div');
     var actionListFormName = document.createElement('h4');
@@ -153,7 +163,7 @@ function actionList () {
     actionListCopyList.className = 'action copyList';
     actionListMoveList.className = 'action moveList';
     actionListDeleteList.className = 'action deleteList';
-    actionListFormName.innerText = 'Action List';
+    actionListFormName.innerHTML = 'Action List';
     actionListCopyList.innerText = 'Copy List...';
     actionListMoveList.innerText = 'Move List...';
     actionListDeleteList.innerText = 'Delete This List';
@@ -169,7 +179,6 @@ function actionList () {
         var parentList = document.querySelector('.lists');
         if (event.target === actionListCloseBtn) {
             console.log('щёлк');
-            // showHide(event.currentTarget);
         } else if (event.target === actionListCopyList) {
             console.log('Show Copy List Form');
             
@@ -193,24 +202,28 @@ function showHide (el) {
 
 function renameList (event1) {
     var inp = event1.currentTarget.nextSibling;
+    var parent = event.currentTarget.parentNode;
+    var child = event.currentTarget;
+    var currentListName = parent.firstChild;
+    var oldName = parent.innerText;
+    console.log(oldName);
     showHide(inp);
     inp.value = event1.currentTarget.innerText;
     inp.focus();
-    inp.addEventListener('keydown', renameListControl(event));
-    // inp.removeEventListener('keydown', renameListControl(event));
+    inp.addEventListener('keydown', rename);
 
-    function renameListControl (event) {
-        console.log(event, 11);
+    function rename () {
         if (event.keyCode === 13 && inp.value !== "") {
-            var parent = event.currentTarget.parentNode;
-            var child = event.currentTarget;
-            var currentListName = parent.firstChild;
-            console.log(parent, currentListName);
             currentListName.innerText = inp.value;
             showHide(inp);
-            // inp.removeEventListener('keydown', renameListControl(event));
+            console.log(event.key);
+            inp.removeEventListener('keydown', rename);
+        } else if (event.keyCode === 27) {
+            console.log(event.key);
+            showHide(inp);
+            inp.removeEventListener('keydown', rename);
         }
-        console.log(121);
+        console.log('щёлк');
     }
 }
 

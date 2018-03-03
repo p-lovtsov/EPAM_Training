@@ -49,7 +49,6 @@ elemBoardName.addEventListener('click', function() {
             localStorage.setItem('boardName', name);
             modal.classList.add('hide');
         }
-        
     });
 });
 
@@ -123,7 +122,9 @@ function newList (nameOfList) {
     lists.insertBefore(divList,addListForm);
     addListInput.value = '';
     listMenu.addEventListener('click', function () {
-        showHide(actionListForm);
+        if (event.target === event.currentTarget) {
+            showHide(actionListForm);
+        }
     });
     // появление формы добавления карты
     divAddCard.addEventListener('click', function () {
@@ -148,51 +149,125 @@ function newList (nameOfList) {
     });
 }
 
-// добавление нового листа
+// меню листа
 function actionList () {
     var actionListForm1 = document.createElement('div');
+    var actionListBack = document.createElement('div');
     var actionListFormName = document.createElement('h4');
+    var actionListFormSpan = document.createElement('span');
     var actionListCloseBtn = document.createElement('div');
     var actionListFormLine = document.createElement('hr');
+
+    //action buttons
+    var actionsButtons = document.createElement('div');
     var actionListCopyList = document.createElement('div');
     var actionListMoveList = document.createElement('div');
     var actionListDeleteList = document.createElement('div');
+    
+    //copy List
+    var copyList = document.createElement('div');
+    var copyListLabel = document.createElement('label');
+    var copyListTextarea = document.createElement('textarea');
+    var copyListBtn = document.createElement('div');
+
+    //move List
+    var moveList = document.createElement('div');
+    var moveListBoardName = document.createElement('span');
+    var moveListSelect = document.createElement('select');
+    var moveListSpanPosition = document.createElement('span');
+    var moveListPosition = document.createElement('select');
+    var moveListMoveBtn = document.createElement('div');
+
+    moveList.className = 'moveList hide';
+    moveListBoardName.innerText = 'Board';
+    moveListSpanPosition.innerText = 'Position';
+    moveListMoveBtn.className = 'btn';
+    moveListMoveBtn.innerText = 'Move';
+    actionListBack.innerHTML = '&#8592;';
+    actionListBack.className = 'modal-btn-back hide';
+    copyListBtn.innerText = 'Create List';
+    copyListBtn.className = 'btn';
+    copyListLabel.innerText = 'Name';
+    copyList.className = 'copyList hide';
+    copyListTextarea.cols = '30';
+    copyListTextarea.rows = '5';
+    actionsButtons.className = 'actions';
     actionListForm1.className = 'modalListMenu hide';
     actionListCloseBtn.className = 'modal-btn-close';
-    actionListCloseBtn.innerText = 'X';
+    actionListCloseBtn.innerHTML = '&#10060;';
     actionListCopyList.className = 'action copyList';
     actionListMoveList.className = 'action moveList';
     actionListDeleteList.className = 'action deleteList';
-    actionListFormName.innerHTML = 'Action List';
+    actionListFormSpan.innerText = 'Action List';
     actionListCopyList.innerText = 'Copy List...';
     actionListMoveList.innerText = 'Move List...';
     actionListDeleteList.innerText = 'Delete This List';
+    actionListFormName.appendChild(actionListBack);
+    actionListFormName.appendChild(actionListFormSpan);
     actionListFormName.appendChild(actionListCloseBtn);
+    moveList.appendChild(moveListBoardName);
+    moveList.appendChild(moveListSelect);
+    moveList.appendChild(moveListSpanPosition);
+    moveList.appendChild(moveListPosition);
+    moveList.appendChild(moveListMoveBtn);
     actionListForm1.appendChild(actionListFormName);
     actionListForm1.appendChild(actionListFormLine);
-    actionListForm1.appendChild(actionListCopyList);
-    actionListForm1.appendChild(actionListMoveList);
-    actionListForm1.appendChild(actionListDeleteList);
-    actionListForm1.addEventListener('click', function (event) {
+    actionListForm1.appendChild(actionsButtons);
+    actionListForm1.appendChild(copyList);
+    actionListForm1.appendChild(moveList);
+    copyList.appendChild(copyListLabel);
+    copyList.appendChild(copyListTextarea);
+    copyList.appendChild(copyListBtn);
+    actionsButtons.appendChild(actionListCopyList);
+    actionsButtons.appendChild(actionListMoveList);
+    actionsButtons.appendChild(actionListDeleteList);
+    actionListBack.addEventListener('click', function () {
+        showHide(actionsButtons);
+        copyList.classList.add('hide');
+        moveList.classList.add('hide');
+        actionListBack.classList.add('hide');
+        actionListFormSpan.innerText = 'Action List';
+    });
+    actionListCloseBtn.addEventListener('click', function () {
+        showHide(actionListForm1);
+        console.log('клац');
+    });
+    actionsButtons.addEventListener('click', function (event) {
         var list = event.currentTarget.closest('.list');
         var listId = list.id;
         var parentList = document.querySelector('.lists');
+        
         if (event.target === actionListCloseBtn) {
             console.log('щёлк');
         } else if (event.target === actionListCopyList) {
             console.log('Show Copy List Form');
-            
+            actionListFormSpan.innerText = 'Copy List';
+            showHide(actionsButtons);
+            actionListBack.classList.remove('hide');
+            showHide(copyList);
+            console.log(this);
+            var curListHeader = this.closest('.list-header');
+            var listN = curListHeader.firstChild;
+            console.log(curListHeader, listN);
+            copyListTextarea.value = listN.innerText;
         } else if (event.target === actionListMoveList) {
             console.log('Show Move List Form');
+            actionListFormSpan.innerText = 'Move List';
+            showHide(actionsButtons);
+            actionListBack.classList.remove('hide');
+            showHide(moveList);
         } else if (event.target === actionListDeleteList) {
             console.log('Delete List');
-            
-            console.log(parentList);
             parentList.removeChild(list);
             console.log('удалили лист с id ' + listId);
         }
         
     });
+
+    copyListBtn.addEventListener('click', function () {
+        console.log('Копируется лист');
+        newList(copyListTextarea.value + ' Copied');
+    })
     return actionListForm1;
 }
 

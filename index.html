@@ -9,20 +9,29 @@
 </head>
 <body>
     <div class="container">
-        <div class="overlay">
-                <div class="modalTaskForm">
-                    <header class="modalTaskFormHeader">
-                        <h2 class="task-name">task-name</h2>
-                        <div class="close-btn">&#10060;</div>
-                    </header>
-                    <div class="inList">in list ...</div>
-                    <main>
-
-                    </main>
-                    
-
-
-                </div>
+        <div class="overlay center hide">
+            <div class="modalTaskForm">
+                <header class="modalTaskFormHeader">
+                    <h2 class="task-name">task-name</h2>
+                    <div class="close-btn">&#10060;</div>
+                </header>
+                <div class="inList">in list </div>
+                <main>
+                    <div class="taskDesc">
+                        <textarea name="description" id="taskDescField" cols="60" rows="12" placeholder="Add a more detailed description..."></textarea>
+                        <div class="taskDescBtns">
+                            <div class="btn">Save</div>
+                            <div class="close-btn" id="taskDescCancelBtn">&#10060;</div>
+                        </div>
+                    </div>
+                    <div class="taskActionButtons">
+                        <span>Actions</span>
+                        <div class="taskFormBtn">Move</div>
+                        <div class="taskFormBtn">Copy</div>
+                        <div class="taskFormBtn">Delete</div>
+                    </div>
+                </main>
+            </div>
         </div>
         <header>
             <h2 id="boardName">Board 5</h2>

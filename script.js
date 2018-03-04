@@ -2,6 +2,7 @@ var brdName = '';
 var actions = [];
 var ArrayOfLists = [];
 var board;
+var overlay = document.querySelector('.overlay');
 var elemBoardName = document.querySelector('#boardName');
 var elemRenameBoard = document.querySelector('#renameBoard');
 var listName = document.querySelectorAll('.listName');
@@ -142,9 +143,14 @@ function newList (nameOfList) {
         if (newCardTextarea.value !== '') {
             var divCard = document.createElement('div');
             divCard.className = 'card';
+            divCard.id = uuid();
             divCard.innerText = newCardTextarea.value;
             cards.appendChild(divCard);
             newCardTextarea.value = '';
+            divCard.addEventListener ('click', function () {
+                var listNameToModalTaskForm = divCard.id;
+                showHide(overlay);
+            })
         }
     });
 }
@@ -317,18 +323,15 @@ function uuid() {
     return uuid;
 }
 
-// addListInput.addEventListener('focusout', function (event) {
-//     console.log(event.currentTarget, event.target);
-//     var addListFooter = document.querySelector('.addList-footer');
-//     addListFooter.classList.add('hide');
-// });
-
-// lists.addEventListener('click', function (event) {
-//     // console.log(event.target);
-// })
-
 addListForm.addEventListener('click', function(event) {
     if (event.target === addListSave) {
         console.log(1);
+    }
+});
+
+// тень войны
+overlay.addEventListener('click', function() {
+    if (event.target === event.currentTarget) {
+        overlay.classList.add('hide');
     }
 });

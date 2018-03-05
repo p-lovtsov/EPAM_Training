@@ -42,6 +42,7 @@ body .modal-btn-close {
   position: absolute;
   top: 0;
   right: 0;
+  cursor: pointer;
 }
 body .modal-btn-close svg {
   width: 10px;
@@ -189,6 +190,7 @@ body .modalListMenu .moveList select {
   font-weight: 600;
 }
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn {
+  position: relative;
   margin: 7px;
   width: 130px;
   text-align: center;
@@ -197,9 +199,72 @@ body .modalListMenu .moveList select {
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn:hover {
   background-color: rgba(0, 0, 0, 0.15);
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn span {
+  font-weight: 400;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove {
+  position: absolute;
+  top: -50px;
+  left: -15px;
+  background-color: white;
+  width: 300px;
+  height: 205px;
+  z-index: 15;
+  border-radius: 3px;
+  cursor: default;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove h4 {
+  margin: 10px;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove h4 .taskFormMoveName {
+  font-size: 16px;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove h4 .modal-btn-close {
+  right: 5px;
+  top: 5px;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove hr {
+  margin: 5px auto;
+  width: 95%;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove label {
+  font-size: 15px;
+  margin: 5px;
+  text-align: left;
+  position: absolute;
+  z-index: 1;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove .taskFormMoveListPosition {
+  display: flex;
+  position: relative;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove .taskFormMoveListPosition .listPositionList {
+  width: 185px;
+  margin-left: 5px;
+  position: relative;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove .taskFormMoveListPosition .listPositionPosition {
+  width: 100px;
+  position: relative;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove select {
+  width: 90%;
+  height: 50px;
+  position: relative;
+  margin: 5px;
+  color: #333;
+  border-radius: 3px;
+  background-color: lightgrey;
+  cursor: pointer;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove .btn {
+  margin-left: 14px;
+  margin-top: 3px;
 }
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn:first-of-type {
   margin-top: 15px;

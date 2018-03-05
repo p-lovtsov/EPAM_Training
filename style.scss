@@ -47,6 +47,7 @@ body {
         position: absolute;
         top: 0;
         right: 0;
+        cursor: pointer;
 
         svg {
             width: 10px;
@@ -212,6 +213,7 @@ body {
                     font-weight: 600;
                 }
                 .taskFormBtn {
+                    position: relative;
                     margin: 7px;
                     width: 130px;
                     text-align: center;
@@ -220,8 +222,78 @@ body {
                     border-radius: 3px;
                     border: 1px solid rgba(0,0,0,.5);
                     box-shadow: 0 1px rgba(0,0,0,.3);
+                    cursor: pointer;
                     &:hover {
                         background-color: rgba(0,0,0,.15);
+                    }
+                    span {
+                        font-weight: 400;
+                    }
+                    .taskFormMove {
+                        position: absolute;
+                        top: -50px;
+                        left: -15px;
+                        background-color: white;
+                        width: 300px;
+                        height: 205px;
+                        z-index: 15;
+                        border-radius: 3px;
+                        cursor: default;
+
+                        h4 {
+                            margin: 10px;
+                            .taskFormMoveName {
+                                font-size: 16px;
+                            }
+                            .modal-btn-close {
+                                right: 5px;
+                                top: 5px;
+                            }
+                        }
+                        hr {
+                            margin: 5px auto;
+                            width: 95%;
+                        }
+
+                        label {
+                            font-size: 15px;
+                            margin: 5px;
+                            text-align: left;
+                            position: absolute;
+                            z-index: 1;
+                        }
+
+                        .taskFormMoveListPosition {
+                            display: flex;
+                            position: relative;
+
+                            .listPositionList {
+                                width: 185px;
+                                margin-left: 5px;
+                                position: relative;
+                            }
+
+                            .listPositionPosition {
+                                width: 100px;
+                                position: relative;
+                            }
+                        }
+
+                        select {
+                            width: 90%;
+                            height: 50px;
+                            position: relative;
+                            margin: 5px;
+                            color: #333;
+                            border-radius: 3px;
+                            background-color: lightgrey;
+                            cursor: pointer;
+                        }
+
+                        .btn {
+                            margin-left: 14px;
+                            margin-top: 3px;
+                        }
                     }
                 }
                 .taskFormBtn:first-of-type {

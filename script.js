@@ -12,6 +12,31 @@ var addListSave = document.querySelector('#addList-save');
 var addListCloseBtn = document.querySelector('.addList .close-btn');
 var page = document.querySelector('.container');
 var lists = document.querySelector('.lists');
+var taskMove = document.querySelector('.taskMove');
+
+taskMove.addEventListener('click', function () {
+    if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
+        event.currentTarget.children[1].classList.remove('hide');
+        console.log('туту');
+    }
+    console.log(event.currentTarget.firstChild);
+    console.dir(event.currentTarget);
+});
+
+//model 
+function List (name, position) {
+    this.id = uuid();
+    this.name = name;
+    this.position = position;
+}
+
+function Card (task, list, position, description) {
+    this.id = uuid();
+    this.list = list;
+    this.task = task;
+    this.position = position;
+    this.description = description;
+}
 
 window.onload = init();
 
@@ -21,10 +46,12 @@ function init () {
     if (localStorage.length === 0) {
         board = {
             name: 'Board 1',
-            list1: 'Backlog',
-            list2: 'In progress',
-            list3: 'Done'
+            lists: [],
+            history: []
         }
+        newList('Backlog');
+        newList('In progress');
+        newList('Done');
         localStorage.setItem('boardName', board.name);
     }
     brdName = localStorage.getItem('boardName');
@@ -68,6 +95,11 @@ addListSave.addEventListener('click', function (event) {
 
 // новый лист
 function newList (nameOfList) {
+    var list = new List (nameOfList);
+    list.id = uuid();
+    board.lists.push(nameOfList);
+    console.log(typeof list);
+    console.log(board);
     var divList = document.createElement('div');
     var divListHeader = document.createElement('div');
     var h4 = document.createElement('h4');
@@ -97,7 +129,7 @@ function newList (nameOfList) {
     divList.className = 'list';
     divListHeader.className = 'list-header';
     h4.className = 'listName';
-    divList.id = uuid();
+    divList.id = list.id;
     if(nameOfList) {
         h4.innerHTML = nameOfList;
     } else {
@@ -150,9 +182,15 @@ function newList (nameOfList) {
             divCard.addEventListener ('click', function () {
                 var listNameToModalTaskForm = divCard.id;
                 showHide(overlay);
+                var inlistText = listNameToModalTaskForm;
+                inListSpan.innerText = inlistText;
             })
         }
     });
+}
+
+function taskForm () {
+    console.log(event);
 }
 
 // меню листа

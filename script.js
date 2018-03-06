@@ -69,6 +69,13 @@ function init () {
     for (var i=0; i<len; i++) {
         var list = JSON.parse(localStorage.getItem(board.lists[i]));
         drawList(list.name, list.id);
+        if(list.cards !== undefined) {
+            var cardsLen = list.cards.length;
+            for (var j=0; j<cardsLen; j++) {
+                var card = JSON.parse(localStorage.getItem(list.cards[j]));
+                drawCard(list.id, list.cards[j], card.task);
+            }
+        }
     }
     elemBoardName.innerText = brdName;
 }
@@ -212,24 +219,11 @@ function drawList (nameOfList, listId) {
         list.cards.push(card.id);
         localStorage.setItem(listId,JSON.stringify(list));
         localStorage.setItem(card.id, JSON.stringify(card));
-        drawCard(text, listId, card.id);
+        drawCard(listId, card.id, card.task);
+        newCardTextarea.value = '';
     }
 
-    function drawCard (text, listId, cardId) {
-        var divCard = document.createElement('div');
-        divCard.className = 'card';
-        divCard.id = cardId;
-        divCard.innerText = newCardTextarea.value;
-        cards.appendChild(divCard);
-        console.log(newCardTextarea);
-        newCardTextarea.value = '';
-        divCard.addEventListener ('click', function () {
-            var listNameToModalTaskForm = divCard.id;
-            showHide(overlay);
-            var inlistText = listNameToModalTaskForm;
-            inListSpan.innerText = inlistText;
-        });
-    }
+    
 
     // добавление новой карты
     addCardBtn.addEventListener('click', function () {
@@ -239,7 +233,23 @@ function drawList (nameOfList, listId) {
     });
 }
 
-    
+function drawCard (listId, cardId, text) {
+    console.log('draw', listId, cardId);
+    var divCard = document.createElement('div');
+    var list = document.getElementById(listId);
+    var cards = list.children[1];
+    console.log(list);
+    divCard.className = 'card';
+    divCard.id = cardId;
+    divCard.innerText = text;
+    cards.appendChild(divCard);
+    divCard.addEventListener ('click', function () {
+        var listNameToModalTaskForm = divCard.id;
+        showHide(overlay);
+        var inlistText = listNameToModalTaskForm;
+        inListSpan.innerText = inlistText;
+    });
+}
 
 function taskForm () {
     console.log(event);

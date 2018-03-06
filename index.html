@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="overlay center">
+        <div class="overlay center hide">
             <div class="modalTaskForm">
                 <header class="modalTaskFormHeader">
                     <h2 class="task-name">task-name</h2>
@@ -59,6 +59,36 @@
                         </div>
                         <div class="taskFormBtn taskCopy">
                             <span>Copy</span>
+                            <div class="taskFormCopy hide">
+                                <h4>
+                                    <span class="taskFormCopyName">Copy Card</span>
+                                    <div class="modal-btn-close">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                                            <g><g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"><path d="M630.2,4489.8L100,3957.7l1917.9-1917.9L3937.7,120L2017.9-1799.8L100-3717.7l530.2-532.1l532.1-530.2l1917.9,1917.9L5000-942.3l1919.8-1919.8L8837.7-4780l532.1,530.2l530.2,532.1L7982.1-1799.8L6062.3,120l1919.8,1919.8L9900,3957.7l-530.2,532.1L8837.7,5020L6919.8,3102.1L5000,1182.3L3080.2,3102.1L1162.3,5020L630.2,4489.8z"/></g></g>
+                                        </svg>
+                                    </div>
+                                </h4>
+                                <hr>
+                                <h5 class="listTitle">Title</h5>
+                                <textarea name="listTitle" id="listTitle" cols="36" rows="5"></textarea>
+                                <label class='labelBoard'>Board</label>
+                                <select name="taskFormMoveBoardName" id="taskFormMoveBoardName" disabled></select>
+                                <div class="taskFormMoveListPosition">
+                                    <div class="listPositionList">
+                                        <label class="labelList">List</label>
+                                        <select name="taskFormMoveList" id="taskFormMoveList">
+                                            <option value="1"></option>
+                                        </select>
+                                    </div>
+                                    <div class="listPositionPosition">
+                                        <label class="labelPosition">Position</label>
+                                        <select name="taskFormMovePosition" id="taskFormMovePosition">
+                                            <option value="2"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="btn">Create Card</div>
+                            </div>
                         </div>
                         <div class="taskFormBtn taskDelete">
                             <span>Delete</span>
@@ -89,7 +119,7 @@
         </header>
         <main>
             <div class="lists">
-                <div class="list">
+                <!-- <div class="list">
                     <div class="list-header">
                         <h4 class="listName">Backlog</h4>
                         <input type="text" class="listRenameField hide">
@@ -146,7 +176,7 @@
                         </div>
                         <div class="addCard">Add a card ...</div>
                     </div>
-                </div>
+                </div> -->
                 <div class="addList">
                     <input type="text" id="addList-input" placeholder="Add a list ...">
                     <div class="addList-footer hide">

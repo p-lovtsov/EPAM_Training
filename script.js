@@ -1,7 +1,12 @@
 var brdName = '';
 var actions = [];
 var ArrayOfLists = [];
-var board;
+var board = {
+    name: '',
+    lists: [],
+    history: []
+};
+var user = "User";
 var overlay = document.querySelector('.overlay');
 var elemBoardName = document.querySelector('#boardName');
 var elemRenameBoard = document.querySelector('#renameBoard');
@@ -13,21 +18,23 @@ var addListCloseBtn = document.querySelector('.addList .close-btn');
 var page = document.querySelector('.container');
 var lists = document.querySelector('.lists');
 var taskMove = document.querySelector('.taskMove');
+var taskCopy = document.querySelector('.taskCopy');
+var taskCopyClose = document.querySelector('.taskCopy .modal-btn-close');
+var taskMoveClose = document.querySelector('.taskMove .modal-btn-close');
 
-taskMove.addEventListener('click', function () {
-    if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
-        event.currentTarget.children[1].classList.remove('hide');
-        console.log('туту');
-    }
-    console.log(event.currentTarget.firstChild);
-    console.dir(event.currentTarget);
+taskCopyClose.addEventListener('click', function () {
+    taskCopy.children[1].classList.add('hide');
+});
+
+taskMoveClose.addEventListener('click', function () {
+    taskMove.children[1].classList.add('hide');
 });
 
 //model 
-function List (name, position) {
+function List (name) {
     this.id = uuid();
     this.name = name;
-    this.position = position;
+    this.cards = [];
 }
 
 function Card (task, list, position, description) {
@@ -52,11 +59,25 @@ function init () {
         newList('Backlog');
         newList('In progress');
         newList('Done');
-        localStorage.setItem('boardName', board.name);
+        boardToLocalStorage();
     }
-    brdName = localStorage.getItem('boardName');
+    board = JSON.parse(localStorage.getItem('board'));
+    console.log('from LS', board);
+    var brdName = board.name;
+    console.log(board.lists);
+    var len = board.lists.length;
+    for (var i=0; i<len; i++) {
+        var list = JSON.parse(localStorage.getItem(board.lists[i]));
+        drawList(list.name, list.id);
+    }
     elemBoardName.innerText = brdName;
 }
+
+function boardToLocalStorage () {
+    var value = JSON.stringify(board);
+    console.log(value);
+    localStorage.setItem('board', value);
+};
 
 //контроллер переименования доски
 elemBoardName.addEventListener('click', function() {
@@ -73,8 +94,9 @@ elemBoardName.addEventListener('click', function() {
     renameBtn.addEventListener('click', function () {
         let name = inputBoardName.value;
         if (name !== '') {
-            elemBoardName.innerText = name;
-            localStorage.setItem('boardName', name);
+            board.name = name;
+            boardToLocalStorage();
+            elemBoardName.innerText = board.name;
             modal.classList.add('hide');
         }
     });
@@ -89,7 +111,7 @@ addListInput.addEventListener('focus', function (event) {
 // контроллер добавления листа
 addListSave.addEventListener('click', function (event) {
     if(addListInput.value !== '') {
-        newList();
+        newList(addListInput.value);
     }
 });
 
@@ -97,9 +119,13 @@ addListSave.addEventListener('click', function (event) {
 function newList (nameOfList) {
     var list = new List (nameOfList);
     list.id = uuid();
-    board.lists.push(nameOfList);
-    console.log(typeof list);
-    console.log(board);
+    board.lists.push(list.id);
+    boardToLocalStorage();
+    localStorage.setItem(list.id, JSON.stringify(list));
+    drawList (nameOfList, list.id);
+}
+// отрисовка листа
+function drawList (nameOfList, listId) {
     var divList = document.createElement('div');
     var divListHeader = document.createElement('div');
     var h4 = document.createElement('h4');
@@ -129,7 +155,7 @@ function newList (nameOfList) {
     divList.className = 'list';
     divListHeader.className = 'list-header';
     h4.className = 'listName';
-    divList.id = list.id;
+    divList.id = listId;
     if(nameOfList) {
         h4.innerHTML = nameOfList;
     } else {
@@ -170,24 +196,50 @@ function newList (nameOfList) {
         showHide(divAddCard);
     });
 
+    newCardTextarea.addEventListener('keydown', function () {
+        if (event.keyCode === 13 && newCardTextarea.value !== '') {
+            console.log(listId);
+            addNewCard(newCardTextarea.value, listId);
+        }
+    });
+
+    function addNewCard (text, listId) {
+        var card = new Card (text, listId);
+        card.id = uuid();
+        console.log(card);
+        var list = JSON.parse(localStorage.getItem(listId));
+        console.log(listId, list);
+        list.cards.push(card.id);
+        localStorage.setItem(listId,JSON.stringify(list));
+        localStorage.setItem(card.id, JSON.stringify(card));
+        drawCard(text, listId, card.id);
+    }
+
+    function drawCard (text, listId, cardId) {
+        var divCard = document.createElement('div');
+        divCard.className = 'card';
+        divCard.id = cardId;
+        divCard.innerText = newCardTextarea.value;
+        cards.appendChild(divCard);
+        console.log(newCardTextarea);
+        newCardTextarea.value = '';
+        divCard.addEventListener ('click', function () {
+            var listNameToModalTaskForm = divCard.id;
+            showHide(overlay);
+            var inlistText = listNameToModalTaskForm;
+            inListSpan.innerText = inlistText;
+        });
+    }
+
     // добавление новой карты
     addCardBtn.addEventListener('click', function () {
         if (newCardTextarea.value !== '') {
-            var divCard = document.createElement('div');
-            divCard.className = 'card';
-            divCard.id = uuid();
-            divCard.innerText = newCardTextarea.value;
-            cards.appendChild(divCard);
-            newCardTextarea.value = '';
-            divCard.addEventListener ('click', function () {
-                var listNameToModalTaskForm = divCard.id;
-                showHide(overlay);
-                var inlistText = listNameToModalTaskForm;
-                inListSpan.innerText = inlistText;
-            })
+            addNewCard(newCardTextarea.value, listId);
         }
     });
 }
+
+    
 
 function taskForm () {
     console.log(event);
@@ -371,5 +423,20 @@ addListForm.addEventListener('click', function(event) {
 overlay.addEventListener('click', function() {
     if (event.target === event.currentTarget) {
         overlay.classList.add('hide');
+    }
+});
+
+taskMove.addEventListener('click', function () {
+    if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
+        event.currentTarget.children[1].classList.remove('hide');
+        console.log('туту');
+    }
+    console.log(event.currentTarget.firstChild);
+    console.dir(event.currentTarget);
+});
+
+taskCopy.addEventListener('click', function () {
+    if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
+        event.currentTarget.children[1].classList.remove('hide');
     }
 });

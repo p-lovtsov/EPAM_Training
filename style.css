@@ -21,6 +21,9 @@ body .btn:hover {
   background-color: #49852e;
   cursor: pointer;
 }
+body #taskId {
+  opacity: 0.3;
+}
 body .close-btn {
   width: 18px;
   position: absolute;
@@ -153,6 +156,17 @@ body .modalListMenu .moveList select {
 }
 .overlay .modalTaskForm .modalTaskFormHeader .task-name {
   margin: 10px 25px;
+  width: 600px;
+}
+.overlay .modalTaskForm .modalTaskFormHeader .cardRenameField {
+  position: absolute;
+  left: 19px;
+  top: 10px;
+  width: 600px;
+  height: 20px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 20px;
 }
 .overlay .modalTaskForm .modalTaskFormHeader .close-btn {
   top: 15px;
@@ -160,6 +174,9 @@ body .modalListMenu .moveList select {
 }
 .overlay .modalTaskForm .inList {
   margin-left: 25px;
+}
+.overlay .modalTaskForm .inList #inListSpan {
+  font-style: italic;
 }
 .overlay .modalTaskForm main {
   display: flex;

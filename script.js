@@ -10,17 +10,32 @@ var user = "User";
 var overlay = document.querySelector('.overlay');
 var elemBoardName = document.querySelector('#boardName');
 var elemRenameBoard = document.querySelector('#renameBoard');
-var listName = document.querySelectorAll('.listName');
 var addListForm = document.querySelector('.addList');
 var addListInput = document.querySelector('#addList-input');
 var addListSave = document.querySelector('#addList-save');
 var addListCloseBtn = document.querySelector('.addList .close-btn');
 var page = document.querySelector('.container');
 var lists = document.querySelector('.lists');
+var taskName = document.querySelector('.task-name');
+var cardRenameField = document.querySelector('.cardRenameField');
+var closeTask = document.querySelector('.modalTaskFormHeader .close-btn');
 var taskMove = document.querySelector('.taskMove');
 var taskCopy = document.querySelector('.taskCopy');
 var taskCopyClose = document.querySelector('.taskCopy .modal-btn-close');
 var taskMoveClose = document.querySelector('.taskMove .modal-btn-close');
+var taskDelete = document.querySelector('.taskDelete');
+
+taskDelete.addEventListener('click', function () {
+    var card = cardFromLS(taskId.innerText);
+    deleteCard(card.id);
+    showHide(overlay);
+});
+
+closeTask.addEventListener('click', function () {
+    
+    document.querySelector('.overlay').classList.add('hide');
+    taskName.removeEventListener('click', taskNameRename);
+});
 
 taskCopyClose.addEventListener('click', function () {
     taskCopy.children[1].classList.add('hide');
@@ -62,9 +77,7 @@ function init () {
         boardToLocalStorage();
     }
     board = JSON.parse(localStorage.getItem('board'));
-    console.log('from LS', board);
     var brdName = board.name;
-    console.log(board.lists);
     var len = board.lists.length;
     for (var i=0; i<len; i++) {
         var list = JSON.parse(localStorage.getItem(board.lists[i]));
@@ -82,9 +95,28 @@ function init () {
 
 function boardToLocalStorage () {
     var value = JSON.stringify(board);
-    console.log(value);
     localStorage.setItem('board', value);
 };
+
+function cardToLS (card) {
+    var value = JSON.stringify(card);
+    localStorage.setItem(card.id, value);
+}
+
+function cardFromLS(id) {
+    var card = JSON.parse(localStorage.getItem(id));
+    return card;
+}
+
+function listFromLS (id) {
+    var list = JSON.parse(localStorage.getItem(id));
+    return list;
+}
+
+function listToLS (list) {
+    var value = JSON.stringify(list);
+    localStorage.setItem(list.id, value);
+}
 
 //контроллер переименования доски
 elemBoardName.addEventListener('click', function() {
@@ -163,6 +195,7 @@ function drawList (nameOfList, listId) {
     divListHeader.className = 'list-header';
     h4.className = 'listName';
     divList.id = listId;
+    divList.setAttribute('name', nameOfList);
     if(nameOfList) {
         h4.innerHTML = nameOfList;
     } else {
@@ -171,7 +204,7 @@ function drawList (nameOfList, listId) {
     ArrayOfLists.push(divList.id);
     //контроллер переименования листа
     h4.addEventListener('click', function (event) {
-        renameList(event);
+        showInput(event);
     });
     listMenu.appendChild(actionListForm);
     divNewCardForm.appendChild(newCardTextarea);
@@ -205,54 +238,84 @@ function drawList (nameOfList, listId) {
 
     newCardTextarea.addEventListener('keydown', function () {
         if (event.keyCode === 13 && newCardTextarea.value !== '') {
-            console.log(listId);
             addNewCard(newCardTextarea.value, listId);
+            newCardTextarea.value = '';
+        }
+
+        if (event.keyCode === 27 && newCardTextarea.value !== '') {
+            newCardTextarea.value = '';
         }
     });
-
-    function addNewCard (text, listId) {
-        var card = new Card (text, listId);
-        card.id = uuid();
-        console.log(card);
-        var list = JSON.parse(localStorage.getItem(listId));
-        console.log(listId, list);
-        list.cards.push(card.id);
-        localStorage.setItem(listId,JSON.stringify(list));
-        localStorage.setItem(card.id, JSON.stringify(card));
-        drawCard(listId, card.id, card.task);
-        newCardTextarea.value = '';
-    }
-
-    
 
     // добавление новой карты
     addCardBtn.addEventListener('click', function () {
         if (newCardTextarea.value !== '') {
             addNewCard(newCardTextarea.value, listId);
+            newCardTextarea.value = '';
         }
     });
 }
 
-function drawCard (listId, cardId, text) {
-    console.log('draw', listId, cardId);
-    var divCard = document.createElement('div');
-    var list = document.getElementById(listId);
-    var cards = list.children[1];
+function addNewCard (text, listId) {
+    var card = new Card (text, listId);
+    card.id = uuid();
+    var list = listFromLS(listId);
+    list.cards.push(card.id);
+    listToLS(list);
+    cardToLS(card);
+    drawCard(listId, card.id, card.task);
+}
+
+function deleteCard (cardId) {
+    var card = cardFromLS(cardId);
+    var list = listFromLS(card.list);
+    console.log( list, card, list.cards );
+    var arr = list.cards;
+    var ind = arr.indexOf(cardId);
+    arr.splice(ind, 1);
+    list.cards = arr;
+    console.log(list.cards);
     console.log(list);
+    listToLS(list);
+    localStorage.removeItem(cardId);
+    var cardDOM = document.getElementById(cardId);
+    var parent = cardDOM.parentElement;
+    parent.removeChild(cardDOM);
+}
+
+function drawCard (listId, cardId, text) {
+    var divCard = document.createElement('div');
+    var listDOM = document.getElementById(listId);
+    var cards = listDOM.children[1];
     divCard.className = 'card';
     divCard.id = cardId;
     divCard.innerText = text;
     cards.appendChild(divCard);
     divCard.addEventListener ('click', function () {
-        var listNameToModalTaskForm = divCard.id;
+        var list = listFromLS(listId);
+        var card = cardFromLS(cardId);
+        var descDOM = document.getElementById('taskDescField');
+        taskName.innerText = card.task;
+        taskName.addEventListener('click', taskNameRename);
         showHide(overlay);
-        var inlistText = listNameToModalTaskForm;
-        inListSpan.innerText = inlistText;
+        if(card.description) {
+            descDOM.innerHTML = card.description;
+        }
+        inListSpan.innerText = list.name;
+        taskId.innerText = cardId;
     });
 }
 
-function taskForm () {
-    console.log(event);
+function hideCardInput() {
+    showHide(cardRenameField);
+    cardRenameField.removeEventListener('focusout', hideCardInput);
+}
+
+function taskNameRename () {
+    showHide(cardRenameField);
+    cardRenameField.value = taskName.innerText;
+    cardRenameField.focus();
+    cardRenameField.addEventListener('focusout', hideCardInput);
 }
 
 // меню листа
@@ -336,75 +399,80 @@ function actionList () {
     });
     actionListCloseBtn.addEventListener('click', function () {
         showHide(actionListForm1);
-        console.log('клац');
     });
     actionsButtons.addEventListener('click', function (event) {
         var list = event.currentTarget.closest('.list');
         var listId = list.id;
         var parentList = document.querySelector('.lists');
-        
         if (event.target === actionListCloseBtn) {
-            console.log('щёлк');
         } else if (event.target === actionListCopyList) {
-            console.log('Show Copy List Form');
             actionListFormSpan.innerText = 'Copy List';
             showHide(actionsButtons);
             actionListBack.classList.remove('hide');
             showHide(copyList);
-            console.log(this);
             var curListHeader = this.closest('.list-header');
             var listN = curListHeader.firstChild;
-            console.log(curListHeader, listN);
             copyListTextarea.value = listN.innerText;
         } else if (event.target === actionListMoveList) {
-            console.log('Show Move List Form');
             actionListFormSpan.innerText = 'Move List';
             showHide(actionsButtons);
             actionListBack.classList.remove('hide');
             showHide(moveList);
         } else if (event.target === actionListDeleteList) {
-            console.log('Delete List');
+            deleteList(listId);
             parentList.removeChild(list);
-            console.log('удалили лист с id ' + listId);
         }
-        
     });
 
     copyListBtn.addEventListener('click', function () {
-        console.log('Копируется лист');
         newList(copyListTextarea.value + ' Copied');
     })
     return actionListForm1;
+}
+
+function deleteList (listId) {
+    var arr = board.lists;
+    var ind = arr.indexOf(listId);
+    var list = listFromLS(listId);
+    arr.splice(ind, 1);
+    var arrCards = list.cards;
+    var arrLen = arrCards.length;
+    for (var i=0; i<arrLen; i++) {
+        deleteCard(arrCards[i]);
+    }
+    board.lists = arr;
+    boardToLocalStorage();
+    localStorage.removeItem(listId);
+    console.log(arr);
 }
 
 function showHide (el) {
     el.classList.toggle('hide');
 }
 
-function renameList (event1) {
-    var inp = event1.currentTarget.nextSibling;
+function showInput () {
+    var inp = event.currentTarget.nextSibling;
     var parent = event.currentTarget.parentNode;
     var child = event.currentTarget;
     var currentListName = parent.firstChild;
-    var oldName = parent.innerText;
-    console.log(oldName);
     showHide(inp);
-    inp.value = event1.currentTarget.innerText;
+    inp.value = event.currentTarget.innerText;
     inp.focus();
-    inp.addEventListener('keydown', rename);
+    var listDOM = event.target.closest('.list');
+    var list = JSON.parse(localStorage.getItem(listDOM.id));
+    inp.addEventListener('keydown', renameList );
 
-    function rename () {
+    function renameList () {
         if (event.keyCode === 13 && inp.value !== "") {
             currentListName.innerText = inp.value;
+            list.name = inp.value;
+            localStorage.setItem(list.id, JSON.stringify(list));
             showHide(inp);
-            console.log(event.key);
-            inp.removeEventListener('keydown', rename);
+            inp.removeEventListener('keydown', renameList);
         } else if (event.keyCode === 27) {
-            console.log(event.key);
             showHide(inp);
-            inp.removeEventListener('keydown', rename);
+            inp.removeEventListener('keydown', renameList);
         }
-        console.log('щёлк');
     }
 }
 
@@ -423,12 +491,6 @@ function uuid() {
     return uuid;
 }
 
-addListForm.addEventListener('click', function(event) {
-    if (event.target === addListSave) {
-        console.log(1);
-    }
-});
-
 // тень войны
 overlay.addEventListener('click', function() {
     if (event.target === event.currentTarget) {
@@ -439,7 +501,6 @@ overlay.addEventListener('click', function() {
 taskMove.addEventListener('click', function () {
     if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
         event.currentTarget.children[1].classList.remove('hide');
-        console.log('туту');
     }
     console.log(event.currentTarget.firstChild);
     console.dir(event.currentTarget);

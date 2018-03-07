@@ -23,6 +23,10 @@ body {
         }
     }
 
+    #taskId {
+        opacity: 0.3;
+    }
+
     .close-btn {
         width: 18px;
         position: absolute;
@@ -173,6 +177,18 @@ body {
 
             .task-name {
                 margin: 10px 25px;
+                width: 600px;
+            }
+
+            .cardRenameField {
+                position: absolute;
+                left: 19px;
+                top: 10px;
+                width: 600px;
+                height: 20px;
+                border-radius: 5px;
+                padding: 5px;
+                font-size: 20px;
             }
             
             .close-btn {
@@ -183,6 +199,9 @@ body {
 
         .inList {
             margin-left: 25px;
+            #inListSpan {
+                font-style: italic;
+            }
         }
 
         main {

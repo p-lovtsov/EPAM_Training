@@ -22,7 +22,7 @@ body .btn:hover {
   cursor: pointer;
 }
 body #taskId {
-  opacity: 0.3;
+  opacity: 0;
 }
 body .close-btn {
   width: 18px;
@@ -157,6 +157,7 @@ body .modalListMenu .moveList select {
 .overlay .modalTaskForm .modalTaskFormHeader .task-name {
   margin: 10px 25px;
   width: 600px;
+  overflow: hidden;
 }
 .overlay .modalTaskForm .modalTaskFormHeader .cardRenameField {
   position: absolute;

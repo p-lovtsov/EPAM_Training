@@ -307,14 +307,37 @@ function drawCard (listId, cardId, text) {
 }
 
 function hideCardInput() {
-    showHide(cardRenameField);
+    cardRenameField.classList.add('hide');
+    console.log(3);
     cardRenameField.removeEventListener('focusout', hideCardInput);
+}
+
+function renameTask () {
+    var cardId = document.getElementById('taskId').innerText;
+    var card = cardFromLS(cardId);
+    var listId = card.list;
+    console.log(card, listId);
+    console.log(event.currentTarget);
+    if (event.keyCode === 13 && event.currentTarget.value !== "") {
+        document.querySelector('.task-name').innerText = event.currentTarget.value;
+        card.task = event.currentTarget.value;
+        console.log(card.task);
+        cardToLS(card);
+        cardRenameField.classList.add('hide');
+        document.getElementById(cardId).innerText = card.task;
+        event.currentTarget.removeEventListener('keydown', renameTask);
+    } else if (event.keyCode === 27) {
+        showHide(event.currentTarget);
+        event.currentTarget.removeEventListener('keydown', renameTask);
+    }
+    console.log(1);
 }
 
 function taskNameRename () {
     showHide(cardRenameField);
     cardRenameField.value = taskName.innerText;
     cardRenameField.focus();
+    cardRenameField.addEventListener('keydown', renameTask);
     cardRenameField.addEventListener('focusout', hideCardInput);
 }
 
@@ -425,7 +448,25 @@ function actionList () {
     });
 
     copyListBtn.addEventListener('click', function () {
+        var listDOM = copyListBtn.closest('.list');
+        var oldBoardLists = [];
+        for (var key in board.lists) {
+            oldBoardLists.push(board.lists[key]);
+        }
+        var list = listFromLS(listDOM.id);
+        var cards = list.cards;
         newList(copyListTextarea.value + ' Copied');
+        var arrBoardLists = board.lists;
+        var len = oldBoardLists.length;
+        var idNewList = arrBoardLists.filter(function (el) {
+            return oldBoardLists.indexOf(el) === -1;
+        });
+        console.log('newListid ', idNewList);
+        console.log(cards);
+        cards.forEach(function (el) {
+            var card = cardFromLS(el);
+            addNewCard(card.task, idNewList);
+        });
     })
     return actionListForm1;
 }

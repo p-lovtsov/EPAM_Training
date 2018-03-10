@@ -44,15 +44,11 @@
                                 <div class="taskFormMoveListPosition">
                                     <div class="listPositionList">
                                         <label>List</label>
-                                        <select name="taskFormMoveList" id="taskFormMoveList">
-                                            <option value="1"></option>
-                                        </select>
+                                        <select name="taskFormMoveList" id="taskFormMoveList"></select>
                                     </div>
                                     <div class="listPositionPosition">
                                         <label>Position</label>
-                                        <select name="taskFormMovePosition" id="taskFormMovePosition">
-                                            <option value="2"></option>
-                                        </select>
+                                        <select name="taskFormMovePosition" id="taskFormMovePosition"></select>
                                     </div>
                                 </div>
                                 <div class="btn">Move</div>
@@ -73,22 +69,20 @@
                                 <h5 class="listTitle">Title</h5>
                                 <textarea name="listTitle" id="listTitle" cols="36" rows="5"></textarea>
                                 <label class='labelBoard'>Board</label>
-                                <select name="taskFormMoveBoardName" id="taskFormMoveBoardName" disabled></select>
+                                <label id="boardNameForCopyTask"></label>
+                                <select name="taskFormCopyBoardName" id="taskFormCopyBoardName" disabled></select>
                                 <div class="taskFormMoveListPosition">
                                     <div class="listPositionList">
                                         <label class="labelList">List</label>
-                                        <select name="taskFormMoveList" id="taskFormMoveList">
-                                            <option value="1"></option>
-                                        </select>
+                                        <label id="labelListTitle"></label>
+                                        <select name="taskFormCopyList" id="taskFormCopyList"></select>
                                     </div>
                                     <div class="listPositionPosition">
                                         <label class="labelPosition">Position</label>
-                                        <select name="taskFormMovePosition" id="taskFormMovePosition">
-                                            <option value="2"></option>
-                                        </select>
+                                        <select name="taskFormCopyPosition" id="taskFormCopyPosition"></select>
                                     </div>
                                 </div>
-                                <div class="btn">Create Card</div>
+                                <div class="btn" id="createCard">Create Card</div>
                             </div>
                         </div>
                         <div class="taskFormBtn taskDelete">

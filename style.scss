@@ -249,6 +249,25 @@ body {
                     span {
                         font-weight: 400;
                     }
+
+                    select {
+                        width: 90%;
+                        height: 50px;
+                        position: relative;
+                        margin: 5px;
+                        color: #333;
+                        border-radius: 3px;
+                        background-color: lightgrey;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-weight: 700;
+                    }
+
+                    option {
+                        font-size: 14px;
+                        font-weight: 700;
+                    }
+
                     .taskFormMove {
                         position: absolute;
                         top: -50px;
@@ -299,16 +318,7 @@ body {
                             }
                         }
 
-                        select {
-                            width: 90%;
-                            height: 50px;
-                            position: relative;
-                            margin: 5px;
-                            color: #333;
-                            border-radius: 3px;
-                            background-color: lightgrey;
-                            cursor: pointer;
-                        }
+                        
 
                         .btn {
                             margin-left: 14px;
@@ -357,6 +367,12 @@ body {
                             left: 5px;
                         }
 
+                        #boardNameForCopyTask {
+                            top: 162px;
+                            left: 20px;
+                            font-size: 21px;
+                        }
+
                         .labelBoard {
                             bottom: 130px;
                             left: 15px;
@@ -388,13 +404,6 @@ body {
 
                         select {
                             width: 92%;
-                            height: 50px;
-                            position: relative;
-                            margin: 5px;
-                            color: #333;
-                            border-radius: 3px;
-                            background-color: lightgrey;
-                            cursor: pointer;
                         }
 
                         .btn {

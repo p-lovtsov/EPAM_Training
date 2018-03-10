@@ -269,13 +269,10 @@ function addNewCard (text, listId) {
 function deleteCard (cardId) {
     var card = cardFromLS(cardId);
     var list = listFromLS(card.list);
-    console.log( list, card, list.cards );
     var arr = list.cards;
     var ind = arr.indexOf(cardId);
     arr.splice(ind, 1);
     list.cards = arr;
-    console.log(list.cards);
-    console.log(list);
     listToLS(list);
     localStorage.removeItem(cardId);
     var cardDOM = document.getElementById(cardId);
@@ -308,7 +305,6 @@ function drawCard (listId, cardId, text) {
 
 function hideCardInput() {
     cardRenameField.classList.add('hide');
-    console.log(3);
     cardRenameField.removeEventListener('focusout', hideCardInput);
 }
 
@@ -316,12 +312,9 @@ function renameTask () {
     var cardId = document.getElementById('taskId').innerText;
     var card = cardFromLS(cardId);
     var listId = card.list;
-    console.log(card, listId);
-    console.log(event.currentTarget);
     if (event.keyCode === 13 && event.currentTarget.value !== "") {
         document.querySelector('.task-name').innerText = event.currentTarget.value;
         card.task = event.currentTarget.value;
-        console.log(card.task);
         cardToLS(card);
         cardRenameField.classList.add('hide');
         document.getElementById(cardId).innerText = card.task;
@@ -330,7 +323,6 @@ function renameTask () {
         showHide(event.currentTarget);
         event.currentTarget.removeEventListener('keydown', renameTask);
     }
-    console.log(1);
 }
 
 function taskNameRename () {
@@ -369,7 +361,10 @@ function actionList () {
     var moveListSpanPosition = document.createElement('span');
     var moveListPosition = document.createElement('select');
     var moveListMoveBtn = document.createElement('div');
+    var moveListOption = document.createElement('option');
 
+    moveListOption.innerText = board.name;
+    moveListPosition.className = 'moveListPosition';
     moveList.className = 'moveList hide';
     moveListBoardName.innerText = 'Board';
     moveListSpanPosition.innerText = 'Position';
@@ -399,9 +394,11 @@ function actionList () {
     actionListFormName.appendChild(actionListCloseBtn);
     moveList.appendChild(moveListBoardName);
     moveList.appendChild(moveListSelect);
+    moveListSelect.appendChild(moveListOption);
     moveList.appendChild(moveListSpanPosition);
     moveList.appendChild(moveListPosition);
     moveList.appendChild(moveListMoveBtn);
+    moveListSelect.setAttribute('disabled', 'disabled');
     actionListForm1.appendChild(actionListFormName);
     actionListForm1.appendChild(actionListFormLine);
     actionListForm1.appendChild(actionsButtons);
@@ -422,7 +419,50 @@ function actionList () {
     });
     actionListCloseBtn.addEventListener('click', function () {
         showHide(actionListForm1);
+        actionsButtons.classList.remove('hide');
+        copyList.classList.add('hide');
+        moveList.classList.add('hide');
+        actionListBack.classList.add('hide');
     });
+
+    moveListMoveBtn.addEventListener('click', function () {
+        var listId = event.currentTarget.closest('.list').id;
+        var currentPosition = board.lists.indexOf(listId) + 1;
+        var toPosition = parseInt(event.currentTarget.previousSibling.value);
+        if (currentPosition === toPosition) {
+            alert('Перемещение не требуется');
+        } else {
+            // DOM
+            var listDOM = document.getElementById(listId);
+            var listsDOM = document.querySelector('.lists');
+            if (currentPosition < toPosition) {
+                var ind = toPosition;
+            } else {
+                var ind = toPosition - 1;
+            }
+            var toList = document.querySelectorAll('.list')[ind];
+            var deletedlist = listsDOM.removeChild(listDOM);
+            if (toPosition === board.lists.length) {
+                listsDOM.insertBefore(deletedlist, addListForm);
+            } else {
+                listsDOM.insertBefore(deletedlist, toList);
+            }
+
+            // board
+            var indEl = board.lists.indexOf(listId);
+            var el = board.lists.splice(indEl, 1);
+            var elStr = el.join();
+            board.lists.splice(toPosition - 1,0, elStr);
+            boardToLocalStorage();
+            showHide(actionListForm1);
+            actionsButtons.classList.remove('hide');
+            copyList.classList.add('hide');
+            moveList.classList.add('hide');
+            actionListBack.classList.add('hide');
+            actionListFormSpan.innerText = 'Action List';
+        }
+    });
+
     actionsButtons.addEventListener('click', function (event) {
         var list = event.currentTarget.closest('.list');
         var listId = list.id;
@@ -438,9 +478,24 @@ function actionList () {
             copyListTextarea.value = listN.innerText;
         } else if (event.target === actionListMoveList) {
             actionListFormSpan.innerText = 'Move List';
-            showHide(actionsButtons);
+            actionsButtons.classList.add('hide');
             actionListBack.classList.remove('hide');
-            showHide(moveList);
+            moveList.classList.remove('hide');
+            moveListOption.innerText = board.name;
+            var select = event.currentTarget.parentElement.querySelector('.moveListPosition');
+            select.length = 0;
+            var amountOfLists = board.lists.length;
+            for(var i=0; i<amountOfLists; i++) {
+                var option = document.createElement('option');
+                if (board.lists[i] === list.id) {
+                    option.innerText = i+1 + ' (current)';
+                    option.selected = true;
+                } else {
+                    option.innerText = i+1;
+                }
+                select.appendChild(option);
+            }
+
         } else if (event.target === actionListDeleteList) {
             deleteList(listId);
             parentList.removeChild(list);
@@ -461,8 +516,6 @@ function actionList () {
         var idNewList = arrBoardLists.filter(function (el) {
             return oldBoardLists.indexOf(el) === -1;
         });
-        console.log('newListid ', idNewList);
-        console.log(cards);
         cards.forEach(function (el) {
             var card = cardFromLS(el);
             addNewCard(card.task, idNewList);
@@ -484,7 +537,6 @@ function deleteList (listId) {
     board.lists = arr;
     boardToLocalStorage();
     localStorage.removeItem(listId);
-    console.log(arr);
 }
 
 function showHide (el) {
@@ -543,12 +595,66 @@ taskMove.addEventListener('click', function () {
     if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
         event.currentTarget.children[1].classList.remove('hide');
     }
-    console.log(event.currentTarget.firstChild);
-    console.dir(event.currentTarget);
+    var cardId = document.getElementById('taskId').innerText;
+    var card = cardFromLS(cardId);
+    var list = listFromLS(card.list);
+    var selectBoard = document.getElementById('taskFormMoveBoardName');
+    var option = document.createElement('option');
+    var selEl = document.getElementById('taskFormMoveList');
+    var selElPos = document.getElementById('taskFormMovePosition');
+    option.innerText = board.name;
+    option.selected = true;
+    selectBoard.appendChild(option);
+    drawLists(list, selEl, card);
+    drawPositions(list, card.id, selElPos);
 });
 
 taskCopy.addEventListener('click', function () {
     if (event.target === event.currentTarget || event.target === event.currentTarget.children[0]) {
         event.currentTarget.children[1].classList.remove('hide');
+        var cardId = document.getElementById('taskId').innerText;
+        var card = cardFromLS(cardId);
+        var list = listFromLS(card.list);
+        listTitle.innerText = card.task;
+        boardNameForCopyTask.innerText = board.name;
+        var selectList = document.getElementById('taskFormCopyList');
+        drawLists(list, selectList, card);
+        var selectPosition = document.getElementById('taskFormCopyPosition');
+        drawPositions(list, cardId, selectPosition);
     }
 });
+
+function drawLists (list, selEl, card) {
+    var lists = board.lists;
+    var len = lists.length;
+    selEl.length = 0;
+    for (var i=0; i<len; i++) {
+        var lid = lists[i];
+        var li = listFromLS(lid);
+        var option = document.createElement('option');
+        if(card.list === li.id) {
+            option.innerText = li.name + ' (current)';
+            option.selected = true;
+        } else {
+            option.innerText = li.name;
+        }
+        option.id = 'l_' + lists[i];
+        selEl.appendChild(option);
+    }
+}
+
+function drawPositions (list, cardId, selEl) {
+    var card = cardFromLS(cardId);
+    var positions = list.cards.length;
+    selEl.length = 0;
+    for (var i=0; i<positions+1; i++) {
+        var option = document.createElement('option');
+        if (card.id === list.cards[i]) {
+            option.innerText = i+1 + ' (current)';
+            // option.selected = true;
+        } else {
+            option.innerText = i+1;
+        }
+        selEl.appendChild(option);
+    }
+}

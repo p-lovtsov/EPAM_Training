@@ -225,6 +225,22 @@ body .modalListMenu .moveList select {
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn span {
   font-weight: 400;
 }
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn select {
+  width: 90%;
+  height: 50px;
+  position: relative;
+  margin: 5px;
+  color: #333;
+  border-radius: 3px;
+  background-color: lightgrey;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn option {
+  font-size: 14px;
+  font-weight: 700;
+}
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove {
   position: absolute;
   top: -50px;
@@ -270,16 +286,6 @@ body .modalListMenu .moveList select {
   width: 100px;
   position: relative;
 }
-.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove select {
-  width: 90%;
-  height: 50px;
-  position: relative;
-  margin: 5px;
-  color: #333;
-  border-radius: 3px;
-  background-color: lightgrey;
-  cursor: pointer;
-}
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormMove .btn {
   margin-left: 14px;
   margin-top: 3px;
@@ -322,6 +328,11 @@ body .modalListMenu .moveList select {
   z-index: 1;
   left: 5px;
 }
+.overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormCopy #boardNameForCopyTask {
+  top: 162px;
+  left: 20px;
+  font-size: 21px;
+}
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormCopy .labelBoard {
   bottom: 130px;
   left: 15px;
@@ -347,13 +358,6 @@ body .modalListMenu .moveList select {
 }
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormCopy select {
   width: 92%;
-  height: 50px;
-  position: relative;
-  margin: 5px;
-  color: #333;
-  border-radius: 3px;
-  background-color: lightgrey;
-  cursor: pointer;
 }
 .overlay .modalTaskForm main .taskActionButtons .taskFormBtn .taskFormCopy .btn {
   margin-left: 14px;

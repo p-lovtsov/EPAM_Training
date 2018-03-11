@@ -703,6 +703,7 @@ createCard.addEventListener('click', function () {
 });
 
 moveCard.addEventListener('click', function () {
+    console.log('move card');
     var cardId = document.getElementById('taskId').innerText;
     var card = cardFromLS(cardId);
     var outListId = card.list;

@@ -22,6 +22,23 @@ var taskCopyClose = document.querySelector('.taskCopy .modal-btn-close');
 var taskMoveClose = document.querySelector('.taskMove .modal-btn-close');
 var taskDelete = document.querySelector('.taskDelete');
 var activityCloseBtn = document.querySelector('#activity .close-btn');
+var description = document.getElementById('taskDescField');
+var descriptionSave = document.querySelector('.taskDescBtns .btn');
+var descriptionReset = document.getElementById('taskDescCancelBtn');
+
+descriptionSave.addEventListener('click', function () {
+    var cardId = document.getElementById('taskId').innerText;
+    var card = cardFromLS(cardId);
+    card.description = description.value;
+    cardToLS(card);
+    var message = user + ' added description to "' + card.task + '"';
+    inHistory(message);
+});
+
+descriptionReset.addEventListener('click', function () {
+    description.value = '';
+})
+
 
 page.addEventListener('click', function() {
     if (event.target === event.currentTarget) {
@@ -319,12 +336,13 @@ function drawCard (listId, cardId, text, position) {
     divCard.addEventListener ('click', function () {
         var list = listFromLS(listId);
         var card = cardFromLS(cardId);
-        var descDOM = document.getElementById('taskDescField');
         taskName.innerText = card.task;
         taskName.addEventListener('click', taskNameRename);
         showHide(overlay);
         if(card.description) {
-            descDOM.innerHTML = card.description;
+            description.value = card.description;
+        } else {
+            description.value = '';
         }
         inListSpan.innerText = list.name;
         taskId.innerText = cardId;

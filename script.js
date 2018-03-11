@@ -653,9 +653,15 @@ function drawLists (list, selEl, card) {
 
 function drawPositions (list, cardId, selEl) {
     var card = cardFromLS(cardId);
-    var positions = list.cards.length;
+    if (selEl === document.getElementById('taskFormMovePosition') && list.id === card.list ) {
+        var positions = list.cards.length;
+    } else {
+        var positions = list.cards.length + 1;
+    }
+    var card = cardFromLS(cardId);
+    
     selEl.length = 0;
-    for (var i=0; i<positions+1; i++) {
+    for (var i=0; i<positions; i++) {
         var option = document.createElement('option');
         if (card.id === list.cards[i]) {
             option.innerText = i+1 + ' (current)';
@@ -693,5 +699,43 @@ createCard.addEventListener('click', function () {
     var toPosition = parseInt(document.getElementById('taskFormCopyPosition').value);
     addNewCard (text, listId, toPosition);
     document.querySelector('.taskFormCopy').classList.add('hide');
+    }
+});
+
+moveCard.addEventListener('click', function () {
+    var cardId = document.getElementById('taskId').innerText;
+    var card = cardFromLS(cardId);
+    var outListId = card.list;
+    var inListId = document.getElementById('taskFormMoveList').selectedOptions[0].id.substr(2);
+    var toPosition = document.getElementById('taskFormMovePosition').selectedOptions[0].value;
+    if (toPosition.indexOf('current') === -1) {
+        card.list = inListId;
+        cardToLS(card);
+        var list = listFromLS(outListId);
+        var ind = list.cards.indexOf(cardId);
+        var parentList = document.getElementById(list.id);
+        var parent = parentList.querySelector('.cards');
+        var cardIdFromList = list.cards.splice(ind, 1).join();
+        listToLS(list);
+        list = listFromLS(inListId);
+        if (toPosition <= list.cards.length) {
+            list.cards.splice(toPosition-1, 0, cardId);
+        } else {
+            list.cards.push(cardId);
+        }
+        listToLS(list);
+        var cardDOM = document.getElementById(cardId);
+        var deletedCard = parent.removeChild(cardDOM);
+        var newParentList = document.getElementById(list.id);
+        var newParent = newParentList.querySelector('.cards');
+        var nextCardId = list.cards[toPosition];
+        var nextCard = document.getElementById(nextCardId);
+        if (toPosition <= list.cards.length) {
+            newParent.insertBefore(deletedCard, nextCard);
+        } else {
+            newParent.appendChild(deletedCard);
+        }
+        document.querySelector('.taskFormMove').classList.add('hide');
+        document.querySelector('.overlay').classList.add('hide');
     }
 });

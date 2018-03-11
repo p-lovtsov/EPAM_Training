@@ -482,6 +482,48 @@ header {
     }
 }
 
+.activity {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: tomato;
+    min-height: 30px;
+    width: 300px;
+    z-index: 20;
+    cursor: default;
+
+    header {
+        display: block;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .close-btn {
+        top: 3px;
+        left: 280px;
+    }
+
+    #history {
+        background-color: silver;
+        min-height: 30px;
+
+        section {
+            border-top: 1px solid #0000002f;
+            p {
+                color: #333;
+                &:nth-child(even) {
+                    font-size: 12px;
+                }
+            }
+            &:nth-child(even) {
+                background-color: lightgray;
+            }
+        }
+    }
+}
+
 main {
     .lists {
         width: 100%;

@@ -421,6 +421,43 @@ header #boardMenu:hover {
   cursor: pointer;
 }
 
+.activity {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: tomato;
+  min-height: 30px;
+  width: 300px;
+  z-index: 20;
+  cursor: default;
+}
+.activity header {
+  display: block;
+}
+.activity h2 {
+  text-align: center;
+}
+.activity .close-btn {
+  top: 3px;
+  left: 280px;
+}
+.activity #history {
+  background-color: silver;
+  min-height: 30px;
+}
+.activity #history section {
+  border-top: 1px solid #0000002f;
+}
+.activity #history section p {
+  color: #333;
+}
+.activity #history section p:nth-child(even) {
+  font-size: 12px;
+}
+.activity #history section:nth-child(even) {
+  background-color: lightgray;
+}
+
 main .lists {
   width: 100%;
 }

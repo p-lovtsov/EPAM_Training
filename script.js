@@ -11,7 +11,7 @@ var addListForm = document.querySelector('.addList');
 var addListInput = document.querySelector('#addList-input');
 var addListSave = document.querySelector('#addList-save');
 var addListCloseBtn = document.querySelector('.addList .close-btn');
-var page = document.querySelector('.container');
+var page = document.querySelector('.container .lists');
 var lists = document.querySelector('.lists');
 var taskName = document.querySelector('.task-name');
 var cardRenameField = document.querySelector('.cardRenameField');
@@ -21,6 +21,16 @@ var taskCopy = document.querySelector('.taskCopy');
 var taskCopyClose = document.querySelector('.taskCopy .modal-btn-close');
 var taskMoveClose = document.querySelector('.taskMove .modal-btn-close');
 var taskDelete = document.querySelector('.taskDelete');
+var activityCloseBtn = document.querySelector('#activity .close-btn');
+
+page.addEventListener('click', function() {
+    if (event.target === event.currentTarget) {
+        activityClose();
+        addCardFormsClose();
+        document.querySelector('.addList-footer').classList.add('hide');
+        document.getElementById('addList-input').value = '';
+    }
+});
 
 taskDelete.addEventListener('click', function () {
     var card = cardFromLS(taskId.innerText);
@@ -56,6 +66,11 @@ function Card (task, list, position, description) {
     this.task = task;
     this.position = position;
     this.description = description;
+}
+
+function History (message) {
+    this.message = message;
+    this.date = new Date();
 }
 
 window.onload = init();
@@ -147,6 +162,8 @@ addListInput.addEventListener('focus', function (event) {
 // контроллер добавления листа
 addListSave.addEventListener('click', function (event) {
     if(addListInput.value !== '') {
+        var message = user + ' добавил новый лист "' + addListInput.value + '"';
+        inHistory(message);
         newList(addListInput.value);
     }
 });
@@ -246,6 +263,8 @@ function drawList (nameOfList, listId) {
     // добавление новой карты
     addCardBtn.addEventListener('click', function () {
         if (newCardTextarea.value !== '') {
+            var message = user + ' добавил новую карту "' + newCardTextarea.value + '" в лист "' + nameOfList + '"';
+            inHistory(message);
             addNewCard(newCardTextarea.value, listId);
             newCardTextarea.value = '';
         }
@@ -256,6 +275,7 @@ function addNewCard (text, listId, position) {
     var card = new Card (text, listId);
     card.id = uuid();
     var list = listFromLS(listId);
+    var message = user + ' added a new card "' + text + '" in list "' + list.name + '"';
     if (position <= list.cards.length) {
         list.cards.splice(position-1, 0, card.id);
     } else {
@@ -271,6 +291,8 @@ function deleteCard (cardId) {
     var list = listFromLS(card.list);
     var arr = list.cards;
     var ind = arr.indexOf(cardId);
+    var message = user + ' удалил карту "' + card.task + '"';
+    inHistory(message);
     arr.splice(ind, 1);
     list.cards = arr;
     listToLS(list);
@@ -433,11 +455,14 @@ function actionList () {
 
     moveListMoveBtn.addEventListener('click', function () {
         var listId = event.currentTarget.closest('.list').id;
+        var list = listFromLS(listId);
         var currentPosition = board.lists.indexOf(listId) + 1;
         var toPosition = parseInt(event.currentTarget.previousSibling.value);
         if (currentPosition === toPosition) {
             alert('Перемещение не требуется');
         } else {
+            var message = user + ' moved list "' + list.name + '" from "' + currentPosition + '" to "' + toPosition + '" position';
+            inHistory(message);
             // DOM
             var listDOM = document.getElementById(listId);
             var listsDOM = document.querySelector('.lists');
@@ -515,6 +540,8 @@ function actionList () {
             oldBoardLists.push(board.lists[key]);
         }
         var list = listFromLS(listDOM.id);
+        var message = user + ' copied list "' + list.name + '"';
+        inHistory(message);
         var cards = list.cards;
         newList(copyListTextarea.value + ' Copied');
         var arrBoardLists = board.lists;
@@ -534,6 +561,8 @@ function deleteList (listId) {
     var arr = board.lists;
     var ind = arr.indexOf(listId);
     var list = listFromLS(listId);
+    var message = user + ' deleted list "' + list.name + '"';
+    inHistory(message);
     arr.splice(ind, 1);
     var arrCards = list.cards;
     var arrLen = arrCards.length;
@@ -696,14 +725,16 @@ createCard.addEventListener('click', function () {
     var text = document.getElementById('listTitle').value;
     selectedList = document.getElementById('taskFormCopyList').selectedOptions[0];
     var listId = selectedList.id.substr(2);
+    var list = listFromLS(listId);
     var toPosition = parseInt(document.getElementById('taskFormCopyPosition').value);
+    var message = user + ' скопировал карту "' + text + '" в лист "' + list.name;
+    inHistory(message);
     addNewCard (text, listId, toPosition);
     document.querySelector('.taskFormCopy').classList.add('hide');
     }
 });
 
 moveCard.addEventListener('click', function () {
-    console.log('move card');
     var cardId = document.getElementById('taskId').innerText;
     var card = cardFromLS(cardId);
     var outListId = card.list;
@@ -713,6 +744,7 @@ moveCard.addEventListener('click', function () {
         card.list = inListId;
         cardToLS(card);
         var list = listFromLS(outListId);
+        var oldList = list.name;
         var ind = list.cards.indexOf(cardId);
         var parentList = document.getElementById(list.id);
         var parent = parentList.querySelector('.cards');
@@ -736,7 +768,76 @@ moveCard.addEventListener('click', function () {
         } else {
             newParent.appendChild(deletedCard);
         }
+        var message = user + ' переместил карту "' + card.task + '" из листа "' + oldList + '" в лист "' + list.name + '"';
+        inHistory(message);
         document.querySelector('.taskFormMove').classList.add('hide');
         document.querySelector('.overlay').classList.add('hide');
     }
 });
+
+function inHistory (message) {
+    var newHistory = new History(message);
+    board.history.push(newHistory);
+    boardToLocalStorage();
+    console.log(message);
+}
+
+showMenu.addEventListener('click', function () {
+    document.getElementById('activity').classList.remove('hide');
+    var hist = document.createElement('div');
+    hist.id = 'history';
+    document.getElementById('activity').appendChild(hist);
+    var amountOfHistory = board.history.length;
+    var dateNow = new Date();
+    for (var i=amountOfHistory-1; i>0; i--) {
+        var note = document.createElement('section');
+        var mess = document.createElement('p');
+        var date = document.createElement('p');
+        var seconds = Math.round( (dateNow - Date.parse(board.history[i].date)) / 1000);
+        if (seconds > 60) {
+            var minutes = Math.round(seconds/60);
+            date.innerText = minutes + ' minutes ago';
+        } else {
+            date.innerText = seconds + ' s ago';
+        }
+        if (minutes > 60) {
+            var hours = Math.round(minutes/60);
+            date.innerText = hours + ' hours ago';
+        }
+        if (hours > 24) {
+            var days = Math.round(hours/24);
+            date.innerText = days + ' days ago';
+        }
+        mess.innerText = board.history[i].message;
+        note.appendChild(mess);
+        note.appendChild(date);
+        document.getElementById('history').appendChild(note);
+    }
+});
+
+activityCloseBtn.addEventListener('click', function () {
+    activityClose();
+});
+
+function activityClose () {
+    document.getElementById('activity').classList.add('hide');
+    var hist = document.getElementById('history');
+    if(hist) {
+        document.getElementById('activity').removeChild(hist);
+    }
+}
+
+function addCardFormsClose () {
+    var addCardForms = document.querySelectorAll('.addCardForm');
+    if (addCardForms) {
+        for (var i=0; i<addCardForms.length; i++) {
+            addCardForms[i].classList.add('hide');
+        }
+    }
+    var addCardBtns = document.querySelectorAll('.addCard');
+    if (addCardBtns) {
+        for (var i=0; i<addCardBtns.length; i++) {
+            addCardBtns[i].classList.remove('hide');
+        }
+    }
+}
